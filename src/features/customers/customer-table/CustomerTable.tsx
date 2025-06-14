@@ -11,17 +11,16 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Dialog,
-  DialogTitle,
   DialogContent,
-  List,
-  ListItem,
-  ListItemText,
   Fab,
   Grid,
   TextField,
   Button,
   Box,
   Typography,
+  List,
+  ListItem,
+  ListItemText,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { Visibility } from '@mui/icons-material';
@@ -40,7 +39,6 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
     useState<CustomerDetails | null>(null);
   const [addModal, setAddModal] = useState(false);
   const { addData } = useCustomerData();
-  const num = 0;
 
   const formik = useFormik({
     initialValues: {
@@ -65,8 +63,7 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
     onSubmit: async (values) => {
       console.log('Submitting:', values);
       try {
-        await addData({
-          customerId: `${num + 1}`,
+        addData({
           name: values.name,
           contact: [values.phone, values.altPhone],
           address: {
@@ -83,6 +80,70 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
       }
     },
   });
+
+  const formSections = [
+    {
+      title: 'Customer Information',
+      fields: [
+        {
+          label: 'Customer Name',
+          name: 'name',
+          value: formik.values.name,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.name && Boolean(formik.errors.name),
+          helperText: formik.touched.name && formik.errors.name,
+        },
+        {
+          label: 'Phone',
+          name: 'phone',
+          value: formik.values.phone,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.phone && Boolean(formik.errors.phone),
+          helperText: formik.touched.phone && formik.errors.phone,
+        },
+        {
+          label: 'Alt Phone',
+          name: 'altPhone',
+          value: formik.values.altPhone,
+        },
+      ],
+    },
+    {
+      title: 'Address',
+      fields: [
+        {
+          label: 'Street',
+          name: 'street',
+          value: formik.values.street,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.street && Boolean(formik.errors.street),
+          helperText: formik.touched.street && formik.errors.street,
+        },
+        {
+          label: 'City',
+          name: 'city',
+          value: formik.values.city,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.city && Boolean(formik.errors.city),
+          helperText: formik.touched.city && formik.errors.city,
+        },
+        {
+          label: 'Zip Code',
+          name: 'zip',
+          value: formik.values.zip,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.zip && Boolean(formik.errors.zip),
+          helperText: formik.touched.zip && formik.errors.zip,
+        },
+      ],
+    },
+  ];
+
   return (
     <>
       <TableContainer component={Paper} sx={{ width: '100%', mt: 2 }}>
@@ -168,14 +229,21 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
           boxShadow: 'none',
           display: 'flex',
           justifyContent: 'flex-end',
-          pr: 4,
+          pr: { xl: 4, xs: 0 },
           mb: 2,
         }}
         elevation={3}
       >
-        <BottomNavigation sx={{ height: '0' }}>
+        <BottomNavigation
+          sx={{
+            height: '0',
+            background: 'none',
+            boxShadow: 'none',
+          }}
+        >
           <BottomNavigationAction
             label="Add"
+            sx={{ boxShadow: 'none' }}
             icon={
               <Fab
                 color="primary"
@@ -191,18 +259,29 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
         </BottomNavigation>
       </Paper>
 
-      {/* For Showing address of the customer */}
       <Dialog
         open={!!selectedCustomer}
         onClose={() => setSelectedCustomer(null)}
       >
-        <DialogTitle>Address</DialogTitle>
         <DialogContent>
           {selectedCustomer && (
             <List>
               <ListItem>
                 <ListItemText
-                  primary={`${selectedCustomer.address.street}, ${selectedCustomer.address.city} - ${selectedCustomer.address.zip}`}
+                  primary="Street"
+                  secondary={selectedCustomer.address.street}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary="City"
+                  secondary={selectedCustomer.address.city}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary="Zip code"
+                  secondary={selectedCustomer.address.zip}
                 />
               </ListItem>
             </List>
@@ -216,102 +295,37 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>Add Customer</DialogTitle>
         <DialogContent>
           {/* Customer Information */}
           <Box sx={{ mt: 2 }} component="form" onSubmit={formik.handleSubmit}>
-            <Typography variant="h6">Customer Information</Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <TextField
-                  label="Customer Name"
-                  fullWidth
-                  name="name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.name && Boolean(formik.errors.name)}
-                  helperText={formik.touched.name && formik.errors.name}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="Phone"
-                  fullWidth
-                  name="phone"
-                  value={formik.values.phone}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.phone && Boolean(formik.errors.phone)}
-                  helperText={formik.touched.phone && formik.errors.phone}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="Alt Phone"
-                  fullWidth
-                  name="altPhone"
-                  value={formik.values.altPhone}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.altPhone && Boolean(formik.errors.altPhone)
-                  }
-                  helperText={formik.touched.altPhone && formik.errors.altPhone}
-                />
-              </Grid>
+            <Box sx={{ mt: 2 }}>
+              {formSections.map((section, index) => (
+                <Box key={index} sx={{ mb: 4 }}>
+                  <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                    {section.title}
+                  </Typography>
+                  <Grid container spacing={2}>
+                    {section.fields.map((field, idx) => (
+                      <Grid item xl={6} lg={6} md={6} sm={6} xs={12} key={idx}>
+                        <TextField fullWidth {...field} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              ))}
+            </Box>
 
-              {/* Address Section */}
-              <Grid item xs={12}>
-                <Typography variant="subtitle1" sx={{ mt: 2 }}>
-                  Address
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="Street"
-                  fullWidth
-                  name="street"
-                  value={formik.values.street}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.street && Boolean(formik.errors.street)}
-                  helperText={formik.touched.street && formik.errors.street}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="City"
-                  fullWidth
-                  name="city"
-                  value={formik.values.city}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.city && Boolean(formik.errors.city)}
-                  helperText={formik.touched.city && formik.errors.city}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="Zip Code"
-                  fullWidth
-                  name="zip"
-                  value={formik.values.zip}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.zip && Boolean(formik.errors.zip)}
-                  helperText={formik.touched.zip && formik.errors.zip}
-                />
-              </Grid>
-            </Grid>
-
-            <Button
-              variant="contained"
-              sx={{ width: '60%', mt: 4, mx: 'auto' }}
-              type="submit"
+            <Box
+              sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
             >
-              Add Kalam
-            </Button>
+              <Button
+                variant="contained"
+                sx={{ width: '60%', mt: 4 }}
+                type="submit"
+              >
+                Add Customer
+              </Button>
+            </Box>
           </Box>
         </DialogContent>
       </Dialog>

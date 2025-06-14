@@ -1,13 +1,6 @@
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import {
-  Typography,
-  Box,
-  Paper,
-  Grid,
-  Stack,
-  Divider,
-} from '@mui/material';
+import { Typography, Box, Paper, Grid, Stack, Divider } from '@mui/material';
 
 const KalamDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,13 +9,7 @@ const KalamDetails: React.FC = () => {
   if (!data) return <Typography>Loading…</Typography>;
 
   /** Helper to render a label–value row */
-  const Row = ({
-    label,
-    value,
-  }: {
-    label: string;
-    value: React.ReactNode;
-  }) => (
+  const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
     <Grid container spacing={1}>
       <Grid item xs={5} sm={4} md={3}>
         <Typography fontWeight={600}>{label}</Typography>
@@ -91,10 +78,7 @@ const KalamDetails: React.FC = () => {
             label="Dukandar ROI:"
             value={data.kalam.loanDetails.merchantROI}
           />
-          <Row
-            label="Total amount:"
-            value={data.kalam.loanDetails.totalAmt}
-          />
+          <Row label="Total amount:" value={data.kalam.loanDetails.totalAmt} />
           <Row label="Validity:" value={data.kalam.loanDetails.validity} />
         </Section>
 
@@ -111,8 +95,8 @@ const KalamDetails: React.FC = () => {
             label="Address:"
             value={
               <>
-                {data.customerDetails.address.street},&nbsp;
-                {data.customerDetails.address.city},&nbsp;
+                {data.customerDetails.address.street},
+                {data.customerDetails.address.city},
                 {data.customerDetails.address.zip}
               </>
             }

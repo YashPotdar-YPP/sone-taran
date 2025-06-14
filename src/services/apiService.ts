@@ -13,7 +13,6 @@ const apiClient = axios.create({
 export interface AddKalam {
   customerId: string,
   loans: {
-    loanId: string,
     details: {
       number: number,
       name: string,
@@ -37,8 +36,18 @@ export interface AddKalam {
 
 }
 
-export interface AddCustomer {
-  customerId: string;
+export interface Customer {
+  name: string;
+  contact: string[];
+  address: {
+    street: string;
+    city: string;
+    zip: number;
+  };
+}
+
+export interface EditCustomer {
+  customerId: string,
   name: string;
   contact: string[];
   address: {
@@ -48,7 +57,6 @@ export interface AddCustomer {
   };
 }
 export interface AddMerchant {
-  merchantId: string;
   name: string;
   shopName: string;
   contact: string[];
@@ -93,7 +101,7 @@ const AddKalamsData = async (KalamData: AddKalam) => {
 
 };
 
-const AddCustomerData = async (CustomerData: AddCustomer) => {
+const AddCustomerData = async (CustomerData: Customer) => {
 
   try {
     const response = await apiClient.post("/customer/addCustomer",
@@ -139,6 +147,27 @@ const searchMerchant = async (name: string, contact: string[]) => {
     throw error;
   }
 };
+
+const updateCustomer = async (_id: string, updateCustomer: EditCustomer) => {
+  try {
+    const response = await apiClient.patch(`/customer/updateCustomer/${_id}`, updateCustomer)
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) return null;
+    throw error;
+  }
+}
+
+const deleteCustomer = async (_id: string) => {
+  try {
+    const response = await apiClient.delete(`/customer/deleteCustomer/${_id}`)
+    fetchCustomerData();
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) return null;
+    throw error;
+  }
+}
 // Export the API methods
 export default {
   fetchKalamsData,
@@ -147,7 +176,9 @@ export default {
   AddKalamsData,
   AddMerchantData,
   searchCustomer,
-  searchMerchant
+  searchMerchant,
+  updateCustomer,
+  deleteCustomer
 };
 
 apiClient.interceptors.response.use(

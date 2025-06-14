@@ -4,5 +4,11 @@ import { CustomerProps } from '../models/CustomerProps';
 export default function CustomerCard(props: CustomerProps) {
   const { data } = props;
   console.log('data ', data);
-  return <ExpandableCustomerCard />;
+  return (
+    <div>
+      {data.map((customerItem, index) => (
+        <ExpandableCustomerCard key={index} customer={customerItem} />
+      ))}
+    </div>
+  );
 }

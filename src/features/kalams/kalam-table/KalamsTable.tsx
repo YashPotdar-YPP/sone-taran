@@ -44,7 +44,6 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
   const navigate = useNavigate();
   const [addModal, setAddModal] = useState(false);
   const { addData } = useKalamsData();
-  const num = 0;
 
   const calculateTodaysValue = () => '-';
   const formik = useFormik({
@@ -113,24 +112,27 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
     }),
     onSubmit: async (values) => {
       console.log('Submitting:', values);
+
       try {
         const custName = values.name;
         const contact = [values.phone, values.altPhone];
         const { street, city, zip } = values;
 
-        const searchResult = await apiService.searchCustomer(custName, contact);
-
         let customerId = '';
+        let searchResult;
 
-        if (searchResult.customer) {
-          customerId = searchResult.customer.customerId;
-        } else {
-          const newCustomerId = String(
-            parseInt(searchResult.lastCustomerId || '100', 10) + 1
-          );
+        try {
+          searchResult = await apiService.searchCustomer(custName, contact);
+
+          if (searchResult.customer) {
+            customerId = searchResult.customer.customerId;
+          } else {
+            throw new Error('Customer not found'); // fallback to creation
+          }
+        } catch (error) {
+          console.warn('Customer not found. Creating new one...', error);
 
           const newCustomer = await apiService.AddCustomerData({
-            customerId: newCustomerId,
             name: custName,
             contact: contact,
             address: {
@@ -143,7 +145,6 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
           customerId = newCustomer.customerId;
         }
 
-        let merchantId = '';
         const {
           merchantName,
           shopName,
@@ -153,23 +154,25 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         } = values;
         const contactMerchant = [values.merchantPhone];
 
-        const serachMerchantResult = await apiService.searchMerchant(
-          merchantName,
-          contactMerchant
-        );
+        let merchantId = '';
+        let serachMerchantResult;
 
-        if (serachMerchantResult.merchant) {
-          merchantId = serachMerchantResult.merchant.merchantId;
-        } else {
-          const newmerchantId = String(
-            parseInt(serachMerchantResult.lastmerchantId || '100', 10) + 1
+        try {
+          serachMerchantResult = await apiService.searchMerchant(
+            merchantName,
+            contactMerchant
           );
 
+          if (serachMerchantResult.merchant) {
+            merchantId = serachMerchantResult.merchant.merchantId;
+          } else {
+            throw new Error('Merchant not found');
+          }
+        } catch (error) {
           const newMerchant = await apiService.AddMerchantData({
-            merchantId: newmerchantId,
-            name: custName,
+            name: merchantName,
             shopName: shopName,
-            contact: contact,
+            contact: contactMerchant,
             address: {
               street: merchantStreet,
               city: merchantCity,
@@ -184,7 +187,6 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         addData({
           customerId: customerId,
           loans: {
-            loanId: `${num + 1}`,
             details: {
               name: values.itemName,
               number: Number(values.itemQuantity),
@@ -215,6 +217,299 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
       }
     },
   });
+
+  const formSections = [
+    {
+      title: 'Customer Information',
+      fields: [
+        {
+          label: 'Customer Name',
+          name: 'name',
+          value: formik.values.name,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.name && Boolean(formik.errors.name),
+          helperText: formik.touched.name && formik.errors.name,
+        },
+        {
+          label: 'Phone',
+          name: 'phone',
+          value: formik.values.phone,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.phone && Boolean(formik.errors.phone),
+          helperText: formik.touched.phone && formik.errors.phone,
+        },
+        {
+          label: 'Alt Phone',
+          name: 'altPhone',
+          value: formik.values.altPhone,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.altPhone && Boolean(formik.errors.altPhone),
+          helperText: formik.touched.altPhone && formik.errors.altPhone,
+        },
+      ],
+    },
+    {
+      title: 'Address',
+      fields: [
+        {
+          label: 'Street',
+          name: 'street',
+          value: formik.values.street,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.street && Boolean(formik.errors.street),
+          helperText: formik.touched.street && formik.errors.street,
+        },
+        {
+          label: 'City',
+          name: 'city',
+          value: formik.values.city,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.city && Boolean(formik.errors.city),
+          helperText: formik.touched.city && formik.errors.city,
+        },
+        {
+          label: 'Zip Code',
+          name: 'zip',
+          value: formik.values.zip,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.zip && Boolean(formik.errors.zip),
+          helperText: formik.touched.zip && formik.errors.zip,
+        },
+      ],
+    },
+    {
+      title: 'Item Details',
+      fields: [
+        {
+          label: 'Item Name',
+          name: 'itemName',
+          value: formik.values.itemName,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.itemName && Boolean(formik.errors.itemName),
+          helperText: formik.touched.itemName && formik.errors.itemName,
+        },
+        {
+          label: 'Item Quantity',
+          name: 'itemQuantity',
+          value: formik.values.itemQuantity,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.itemQuantity && Boolean(formik.errors.itemQuantity),
+          helperText: formik.touched.itemQuantity && formik.errors.itemQuantity,
+        },
+        {
+          label: 'Item Type (Material)',
+          name: 'itemMaterial',
+          value: formik.values.itemMaterial,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.itemMaterial && Boolean(formik.errors.itemMaterial),
+          helperText: formik.touched.itemMaterial && formik.errors.itemMaterial,
+        },
+        {
+          label: 'Net Weight (gm)',
+          type: 'number',
+          name: 'netWeight',
+          value: formik.values.netWeight,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.netWeight && Boolean(formik.errors.netWeight),
+          helperText: formik.touched.netWeight && formik.errors.netWeight,
+        },
+        {
+          label: 'Gross Weight (gm)',
+          type: 'number',
+          name: 'grossWeight',
+          value: formik.values.grossWeight,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.grossWeight && Boolean(formik.errors.grossWeight),
+          helperText: formik.touched.grossWeight && formik.errors.grossWeight,
+        },
+        {
+          label: 'Purity (%)',
+          type: 'number',
+          name: 'purity',
+          value: formik.values.purity,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.purity && Boolean(formik.errors.purity),
+          helperText: formik.touched.purity && formik.errors.purity,
+        },
+        {
+          label: 'Gold Rate',
+          type: 'number',
+          name: 'goldRate',
+          value: formik.values.goldRate,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.goldRate && Boolean(formik.errors.goldRate),
+          helperText: formik.touched.goldRate && formik.errors.goldRate,
+        },
+      ],
+    },
+    {
+      title: 'Mortgage Information',
+      fields: [
+        // Mortgage Information
+        {
+          label: 'Total Amount',
+          type: 'number',
+          name: 'totalAmount',
+          value: formik.values.totalAmount,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.totalAmount && Boolean(formik.errors.totalAmount),
+          helperText: formik.touched.totalAmount && formik.errors.totalAmount,
+        },
+        {
+          label: 'Customer Amount',
+          type: 'number',
+          name: 'customerAmount',
+          value: formik.values.customerAmount,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.customerAmount &&
+            Boolean(formik.errors.customerAmount),
+          helperText:
+            formik.touched.customerAmount && formik.errors.customerAmount,
+        },
+        {
+          label: 'Dukandar Amount',
+          type: 'number',
+          name: 'dukandarAmount',
+          value: formik.values.dukandarAmount,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.dukandarAmount &&
+            Boolean(formik.errors.dukandarAmount),
+          helperText:
+            formik.touched.dukandarAmount && formik.errors.dukandarAmount,
+        },
+        {
+          label: 'Merchant ROI (pm)',
+          type: 'number',
+          name: 'merchantROI',
+          value: formik.values.merchantROI,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.merchantROI && Boolean(formik.errors.merchantROI),
+          helperText: formik.touched.merchantROI && formik.errors.merchantROI,
+        },
+        {
+          label: 'Customer ROI (pm)',
+          type: 'number',
+          name: 'customerROI',
+          value: formik.values.customerROI,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.customerROI && Boolean(formik.errors.customerROI),
+          helperText: formik.touched.customerROI && formik.errors.customerROI,
+        },
+        {
+          type: 'date',
+          name: 'loanStartDate',
+          value: formik.values.loanStartDate,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.loanStartDate &&
+            Boolean(formik.errors.loanStartDate),
+          helperText:
+            formik.touched.loanStartDate && formik.errors.loanStartDate,
+        },
+      ],
+    },
+    {
+      title: 'Merchant Information',
+      fields: [
+        // Merchant formik details
+        {
+          label: 'Merchant Name',
+          name: 'merchantName',
+          value: formik.values.merchantName,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.merchantName && Boolean(formik.errors.merchantName),
+          helperText: formik.touched.merchantName && formik.errors.merchantName,
+        },
+        {
+          label: 'Shop Name',
+          name: 'shopName',
+          value: formik.values.shopName,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.shopName && Boolean(formik.errors.shopName),
+          helperText: formik.touched.shopName && formik.errors.shopName,
+        },
+        {
+          label: 'Phone',
+          name: 'merchantPhone',
+          value: formik.values.merchantPhone,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.merchantPhone &&
+            Boolean(formik.errors.merchantPhone),
+          helperText:
+            formik.touched.merchantPhone && formik.errors.merchantPhone,
+        },
+      ],
+    },
+    {
+      title: 'Address',
+      fields: [
+        {
+          label: 'Street',
+          name: 'merchantStreet',
+          value: formik.values.merchantStreet,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.merchantStreet &&
+            Boolean(formik.errors.merchantStreet),
+          helperText:
+            formik.touched.merchantStreet && formik.errors.merchantStreet,
+        },
+        {
+          label: 'City',
+          name: 'merchantCity',
+          value: formik.values.merchantCity,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.merchantCity && Boolean(formik.errors.merchantCity),
+          helperText: formik.touched.merchantCity && formik.errors.merchantCity,
+        },
+        {
+          label: 'Zip Code',
+          name: 'merchantZip',
+          value: formik.values.merchantZip,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error:
+            formik.touched.merchantZip && Boolean(formik.errors.merchantZip),
+          helperText: formik.touched.merchantZip && formik.errors.merchantZip,
+        },
+      ],
+    },
+  ];
 
   return (
     <>
@@ -332,14 +627,21 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
           boxShadow: 'none',
           display: 'flex',
           justifyContent: 'flex-end',
-          pr: 4,
+          pr: { xl: 4, xs: 0 },
           mb: 2,
         }}
         elevation={3}
       >
-        <BottomNavigation sx={{ height: '0' }}>
+        <BottomNavigation
+          sx={{
+            height: '0',
+            background: 'none',
+            boxShadow: 'none',
+          }}
+        >
           <BottomNavigationAction
             label="Add"
+            sx={{ boxShadow: 'none' }}
             icon={
               <Fab
                 color="primary"
@@ -428,475 +730,40 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>Add Kalam (Copy from Closed Kalam)</DialogTitle>
+        <DialogTitle>Add Kalam</DialogTitle>
         <DialogContent>
           <Box component="form" onSubmit={formik.handleSubmit}>
             {/* Customer Information */}
             <Box sx={{ mt: 2 }}>
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                Customer Information
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Customer Name"
-                    fullWidth
-                    name="name"
-                    value={formik.values.name}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.name && Boolean(formik.errors.name)}
-                    helperText={formik.touched.name && formik.errors.name}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Phone"
-                    fullWidth
-                    name="phone"
-                    value={formik.values.phone}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.phone && Boolean(formik.errors.phone)}
-                    helperText={formik.touched.phone && formik.errors.phone}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Alt Phone"
-                    fullWidth
-                    name="altPhone"
-                    value={formik.values.altPhone}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.altPhone && Boolean(formik.errors.altPhone)
-                    }
-                    helperText={
-                      formik.touched.altPhone && formik.errors.altPhone
-                    }
-                  />
-                </Grid>
-
-                {/* Address Section */}
-                <Grid item xs={12}>
-                  <Typography variant="subtitle1" sx={{ mt: 2 }}>
-                    Address
+              {formSections.map((section, index) => (
+                <Box key={index} sx={{ mb: 4 }}>
+                  <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                    {section.title}
                   </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Street"
-                    fullWidth
-                    name="street"
-                    value={formik.values.street}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.street && Boolean(formik.errors.street)
-                    }
-                    helperText={formik.touched.street && formik.errors.street}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="City"
-                    fullWidth
-                    name="city"
-                    value={formik.values.city}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.city && Boolean(formik.errors.city)}
-                    helperText={formik.touched.city && formik.errors.city}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Zip Code"
-                    fullWidth
-                    name="zip"
-                    value={formik.values.zip}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.zip && Boolean(formik.errors.zip)}
-                    helperText={formik.touched.zip && formik.errors.zip}
-                  />
-                </Grid>
-              </Grid>
+                  <Grid
+                    container
+                    spacing={{ xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }}
+                  >
+                    {section.fields.map((field, idx) => (
+                      <Grid item xl={6} lg={6} md={6} sm={6} xs={12} key={idx}>
+                        <TextField fullWidth {...field} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              ))}
             </Box>
-
-            {/* Item Information */}
-            <Box sx={{ mt: 4 }}>
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                Item Information
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Item Name"
-                    fullWidth
-                    name="itemName"
-                    value={formik.values.itemName}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.itemName && Boolean(formik.errors.itemName)
-                    }
-                    helperText={
-                      formik.touched.itemName && formik.errors.itemName
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Item Quantity"
-                    name="itemQuantity"
-                    fullWidth
-                    value={formik.values.itemQuantity}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.itemQuantity &&
-                      Boolean(formik.errors.itemQuantity)
-                    }
-                    helperText={
-                      formik.touched.itemQuantity && formik.errors.itemQuantity
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Item Type (Material)"
-                    name="itemMaterial"
-                    fullWidth
-                    value={formik.values.itemMaterial}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.itemMaterial &&
-                      Boolean(formik.errors.itemMaterial)
-                    }
-                    helperText={
-                      formik.touched.itemMaterial && formik.errors.itemMaterial
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Net Weight (gm)"
-                    type="number"
-                    name="netWeight"
-                    fullWidth
-                    value={formik.values.netWeight}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.netWeight &&
-                      Boolean(formik.errors.netWeight)
-                    }
-                    helperText={
-                      formik.touched.netWeight && formik.errors.netWeight
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Gross Weight (gm)"
-                    type="number"
-                    name="grossWeight"
-                    fullWidth
-                    value={formik.values.grossWeight}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.grossWeight &&
-                      Boolean(formik.errors.grossWeight)
-                    }
-                    helperText={
-                      formik.touched.grossWeight && formik.errors.grossWeight
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Purity (%)"
-                    type="number"
-                    name="purity"
-                    fullWidth
-                    value={formik.values.purity}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.purity && Boolean(formik.errors.purity)
-                    }
-                    helperText={formik.touched.purity && formik.errors.purity}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Gold Rate"
-                    type="number"
-                    name="goldRate"
-                    fullWidth
-                    value={formik.values.goldRate}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.goldRate && Boolean(formik.errors.goldRate)
-                    }
-                    helperText={
-                      formik.touched.goldRate && formik.errors.goldRate
-                    }
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-
-            {/* Mortgage Information */}
-            <Box sx={{ mt: 4 }}>
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                Mortgage Information
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <TextField
-                    label="Total Amount"
-                    type="number"
-                    name="totalAmount"
-                    fullWidth
-                    value={formik.values.totalAmount}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.totalAmount &&
-                      Boolean(formik.errors.totalAmount)
-                    }
-                    helperText={
-                      formik.touched.totalAmount && formik.errors.totalAmount
-                    }
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    label="Customer Amount"
-                    type="number"
-                    name="customerAmount"
-                    fullWidth
-                    value={formik.values.customerAmount}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.customerAmount &&
-                      Boolean(formik.errors.customerAmount)
-                    }
-                    helperText={
-                      formik.touched.customerAmount &&
-                      formik.errors.customerAmount
-                    }
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    label="Dukandar Amount"
-                    type="number"
-                    name="dukandarAmount"
-                    fullWidth
-                    value={formik.values.dukandarAmount}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.dukandarAmount &&
-                      Boolean(formik.errors.dukandarAmount)
-                    }
-                    helperText={
-                      formik.touched.dukandarAmount &&
-                      formik.errors.dukandarAmount
-                    }
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    label="Merchant ROI (pm)"
-                    type="number"
-                    name="merchantROI"
-                    fullWidth
-                    value={formik.values.merchantROI}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.merchantROI &&
-                      Boolean(formik.errors.merchantROI)
-                    }
-                    helperText={
-                      formik.touched.merchantROI && formik.errors.merchantROI
-                    }
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    label="Customer ROI (pm)"
-                    type="number"
-                    name="customerROI"
-                    fullWidth
-                    value={formik.values.customerROI}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.customerROI &&
-                      Boolean(formik.errors.customerROI)
-                    }
-                    helperText={
-                      formik.touched.customerROI && formik.errors.customerROI
-                    }
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    label="Loan Start Date"
-                    type="date"
-                    name="loanStartDate"
-                    fullWidth
-                    InputLabelProps={{ shrink: true }}
-                    value={formik.values.loanStartDate}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.loanStartDate &&
-                      Boolean(formik.errors.loanStartDate)
-                    }
-                    helperText={
-                      formik.touched.loanStartDate &&
-                      formik.errors.loanStartDate
-                    }
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-
-            {/* Merchant Information */}
-            <Box sx={{ mt: 4 }}>
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                Merchant Information
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Merchant Name"
-                    name="merchantName"
-                    fullWidth
-                    value={formik.values.merchantName}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.merchantName &&
-                      Boolean(formik.errors.merchantName)
-                    }
-                    helperText={
-                      formik.touched.merchantName && formik.errors.merchantName
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Shop Name"
-                    name="shopName"
-                    fullWidth
-                    value={formik.values.shopName}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.shopName && Boolean(formik.errors.shopName)
-                    }
-                    helperText={
-                      formik.touched.shopName && formik.errors.shopName
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Phone"
-                    name="merchantPhone"
-                    fullWidth
-                    value={formik.values.merchantPhone}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.merchantPhone &&
-                      Boolean(formik.errors.merchantPhone)
-                    }
-                    helperText={
-                      formik.touched.merchantPhone &&
-                      formik.errors.merchantPhone
-                    }
-                  />
-                </Grid>
-                {/* Address Section */}
-                <Grid item xs={12}>
-                  <Typography variant="subtitle1" sx={{ mt: 2 }}>
-                    Address
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Street"
-                    fullWidth
-                    name="merchantStreet"
-                    value={formik.values.merchantStreet}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.merchantStreet &&
-                      Boolean(formik.errors.merchantStreet)
-                    }
-                    helperText={
-                      formik.touched.merchantStreet &&
-                      formik.errors.merchantStreet
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="City"
-                    fullWidth
-                    name="merchantCity"
-                    value={formik.values.merchantCity}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.merchantCity &&
-                      Boolean(formik.errors.merchantCity)
-                    }
-                    helperText={
-                      formik.touched.merchantCity && formik.errors.merchantCity
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Zip Code"
-                    fullWidth
-                    name="merchantZip"
-                    value={formik.values.merchantZip}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.merchantZip &&
-                      Boolean(formik.errors.merchantZip)
-                    }
-                    helperText={
-                      formik.touched.merchantZip && formik.errors.merchantZip
-                    }
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-            <Button
-              variant="contained"
-              sx={{ width: '60%', mt: 4, mx: 'auto' }}
-              type="submit"
+            <Box
+              sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
             >
-              Add Kalam
-            </Button>
+              <Button
+                variant="contained"
+                sx={{ width: '60%', mt: 4 }}
+                type="submit"
+              >
+                Add Kalam
+              </Button>
+            </Box>
           </Box>
         </DialogContent>
       </Dialog>

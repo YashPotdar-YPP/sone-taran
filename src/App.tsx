@@ -13,6 +13,12 @@ import {
   Typography,
   Box,
   Breadcrumbs,
+  Divider,
+  Dialog,
+  DialogTitle,
+  Grid,
+  DialogContent,
+  Button,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
@@ -29,9 +35,9 @@ import Customers from './features/customers/Customers';
 import KalamDetails from './features/kalams/kalam-details/KalamDetails';
 import LogIn from './features/auth/components/login/Login';
 import OtpVerify from './features/auth/components/otp-verify/otp-verify';
-import Logout from './features/auth/components/logout/Logout';
 import PrivateRoute from './features/auth/components/private-route/private-route';
 import CustomerDetails from './features/customers/customer-details/CustomerDetails';
+import Page404 from './features/404Page/Page404';
 
 // Lazy load Kalams
 const Kalams = lazy(() => import('./features/kalams/Kalams'));
@@ -42,7 +48,6 @@ const menuItems = [
   { text: 'Customers', path: '/customers' },
   { text: 'Settings', path: '/settings' },
   { text: 'Calculators', path: '/calculators' },
-  { text: 'Log Out', path: '/logout' },
 ];
 
 const drawerWidth = 170;
@@ -83,6 +88,7 @@ const App = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const [logoutModal, setLogoutModal] = useState(false);
   // For login page
   const authRoutes = ['/login', '/otp-verify'];
 
@@ -129,6 +135,15 @@ const App = () => {
     );
   }
 
+  const { logout } = useAuth();
+
+  const onLogout = () => {
+    try {
+      console.log('Logged Out');
+      logout();
+    } catch (e) {}
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -155,12 +170,36 @@ const App = () => {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' },
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+          },
         }}
       >
-        <Box sx={{ marginTop: '4rem' }}>{drawerContent}</Box>
+        <Box sx={{ flexGrow: 1, marginTop: '4rem' }}>{drawerContent}</Box>
+        <Divider />
+        <Box sx={{ color: 'black' }}>
+          <Button
+            onClick={() => {
+              isMobile && toggleDrawer();
+              setLogoutModal(true);
+            }}
+            sx={{ width: '100%' }}
+          >
+            <Typography
+              sx={{
+                color: 'black',
+                textTransform: 'none',
+                padding: 1,
+              }}
+            >
+              Logout
+            </Typography>
+          </Button>
+        </Box>
       </Drawer>
-
       {/* Main Content Area */}
       <Box component="main" sx={{ flexGrow: 1, p: 1, mt: 8 }}>
         <BreadcrumbsComponent />
@@ -224,17 +263,55 @@ const App = () => {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/logout"
-              element={
-                <PrivateRoute>
-                  <Logout />
-                </PrivateRoute>
-              }
-            />
+            <Route path="*" element={<Page404 />} />{' '}
           </Routes>
         </Suspense>
       </Box>
+
+      <Dialog
+        open={logoutModal}
+        onClose={() => setLogoutModal(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogContent>
+          {/* Customer Information */}
+          <Box sx={{ mt: 2 }}>
+            <Typography variant="h6" textAlign={'center'}>
+              Are you sure ? you want to Logout.
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+              <Button
+                variant="contained"
+                sx={{
+                  width: '40%',
+                  mt: 4,
+                  backgroundColor: '#0aa15d',
+                  '&:focus': {
+                    border: 'none',
+                    outline: 'none',
+                  },
+                }}
+                onClick={() => {
+                  onLogout();
+                }}
+              >
+                Yes
+              </Button>
+
+              <Button
+                variant="contained"
+                sx={{ width: '40%', mt: 4, backgroundColor: '#b31520' }}
+                onClick={() => {
+                  setLogoutModal(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </Box>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };
