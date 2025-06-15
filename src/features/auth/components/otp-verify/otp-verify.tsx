@@ -223,7 +223,6 @@ const OtpVerify: React.FC = () => {
                 },
               }}
             >
-            <Box sx={{ mt: 2, textAlign: 'center', fontSize: 'larger' }}>
               OTP :- {otpSent}
             </Box>
           </Box>
