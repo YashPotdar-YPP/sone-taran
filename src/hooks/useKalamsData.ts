@@ -1,7 +1,7 @@
 import useKalamsDataContext from "./useKalamsDataContext";
 
 const useKalamsData = () => {
-  const { data, loading, error, fetchData, invalidateCache, addData } =
+  const { data, loading, error, fetchData, invalidateCache, addData, updateLoan, deleteLoan } =
     useKalamsDataContext();
 
   const fetchIfNeeded = () => {
@@ -10,7 +10,7 @@ const useKalamsData = () => {
     }
   };
 
-  return { data, loading, error, fetchIfNeeded, invalidateCache, addData };
+  return { data, loading, error, fetchIfNeeded, invalidateCache, addData, updateLoan, deleteLoan };
 };
 
 export default useKalamsData;

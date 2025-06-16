@@ -34,7 +34,8 @@ import AddIcon from '@mui/icons-material/Add';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useKalamsData from '../../../hooks/useKalamsData';
-import apiService from '../../../services/apiService';
+import useMerchantData from '../../../hooks/useMerchantData';
+import useCustomerData from '../../../hooks/useCustomersData';
 
 const KalamsTable: React.FC<KalamProps> = (props) => {
   const { data } = props;
@@ -44,8 +45,11 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
   const navigate = useNavigate();
   const [addModal, setAddModal] = useState(false);
   const { addData } = useKalamsData();
+  const { searchMerchant, AddMerchantData } = useMerchantData();
+  const { searchCustomer, addCustomerData } = useCustomerData();
 
   const calculateTodaysValue = () => '-';
+  
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -122,7 +126,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         let searchResult;
 
         try {
-          searchResult = await apiService.searchCustomer(custName, contact);
+          searchResult = await searchCustomer(custName, contact);
 
           if (searchResult.customer) {
             customerId = searchResult.customer.customerId;
@@ -132,7 +136,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         } catch (error) {
           console.warn('Customer not found. Creating new one...', error);
 
-          const newCustomer = await apiService.AddCustomerData({
+          const newCustomer = await addCustomerData({
             name: custName,
             contact: contact,
             address: {
@@ -158,7 +162,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         let serachMerchantResult;
 
         try {
-          serachMerchantResult = await apiService.searchMerchant(
+          serachMerchantResult = await searchMerchant(
             merchantName,
             contactMerchant
           );
@@ -169,7 +173,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
             throw new Error('Merchant not found');
           }
         } catch (error) {
-          const newMerchant = await apiService.AddMerchantData({
+          const newMerchant = await AddMerchantData({
             name: merchantName,
             shopName: shopName,
             contact: contactMerchant,
@@ -180,7 +184,9 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
             },
           });
 
-          merchantId = newMerchant.merchantId;
+          console.log(newMerchant);
+
+          merchantId = await newMerchant.merchantId;
         }
 
         // Assuming addData is a function that handles the submission

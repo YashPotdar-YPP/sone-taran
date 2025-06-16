@@ -25,7 +25,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useCustomerData from '../../../../hooks/useCustomersData';
-import apiService from '../../../../services/apiService';
 
 interface ExpandableCardProps {
   customer: customer;
@@ -36,7 +35,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
 
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const { addData } = useCustomerData();
+  const { addCustomerData, updateCustomer, deleteCustomer } = useCustomerData();
   const navigate = useNavigate();
 
   // Toggle the expanded state when the card is clicked
@@ -68,8 +67,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
     onSubmit: async (values) => {
       console.log('Updating:', values);
       try {
-        await apiService.updateCustomer(customer._id, {
-          customerId: customer.customer.customerId,
+        updateCustomer(customer._id, {
           name: values.name,
           contact: [values.phone],
           address: {
@@ -109,7 +107,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
     onSubmit: async (values) => {
       console.log('Submitting:', values);
       try {
-        addData({
+        addCustomerData({
           name: values.name,
           contact: [values.phone, values.altPhone],
           address: {
@@ -192,9 +190,9 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
 
   const deleteCust = async () => {
     try {
-      await apiService.deleteCustomer(customer._id);
+      deleteCustomer(customer._id);
     } catch (error) {
-      console.error('Add customer error:', error);
+      console.error('error:', error);
     }
   };
 
@@ -408,7 +406,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
         </DialogContent>
       </Dialog>
 
-      {/* For edit Kalam */}
+      {/* For edit Customer */}
       <Dialog
         open={editModal}
         onClose={() => setEditModal(false)}

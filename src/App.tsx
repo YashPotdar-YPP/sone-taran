@@ -139,6 +139,7 @@ const App = () => {
     try {
       console.log('Logged Out');
       logout();
+      setLogoutModal(false);
     } catch (e) {}
   };
 

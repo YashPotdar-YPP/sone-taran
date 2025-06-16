@@ -32,6 +32,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useKalamsData from '../../../../hooks/useKalamsData';
 import apiService from '../../../../services/apiService';
+import useCustomerData from '../../../../hooks/useCustomersData';
+import useMerchantData from '../../../../hooks/useMerchantData';
 interface ExpandableCardProps {
   kalam: Kalam;
 }
@@ -39,8 +41,11 @@ interface ExpandableCardProps {
 const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
   const [expanded, setExpanded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const { addData } = useKalamsData();
+  const { addData, updateLoan, deleteLoan } = useKalamsData();
+  const { updateCustomer } = useCustomerData();
+  const { searchMerchant, AddMerchantData, updateMerchant } = useMerchantData();
   const [addModal, setAddModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
 
   // Toggle the expanded state when the card is
 
@@ -116,18 +121,26 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
     }),
     onSubmit: async (values) => {
       console.log('Submitting:', values);
+
       try {
         const custName = values.name;
         const contact = [values.phone, values.altPhone];
         const { street, city, zip } = values;
 
-        const searchResult = await apiService.searchCustomer(custName, contact);
-
         let customerId = '';
+        let searchResult;
 
-        if (searchResult.customer) {
-          customerId = searchResult.customer.customerId;
-        } else {
+        try {
+          searchResult = await apiService.searchCustomer(custName, contact);
+
+          if (searchResult.customer) {
+            customerId = searchResult.customer.customerId;
+          } else {
+            throw new Error('Customer not found'); // fallback to creation
+          }
+        } catch (error) {
+          console.warn('Customer not found. Creating new one...', error);
+
           const newCustomer = await apiService.AddCustomerData({
             name: custName,
             contact: contact,
@@ -141,7 +154,6 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
           customerId = newCustomer.customerId;
         }
 
-        let merchantId = '';
         const {
           merchantName,
           shopName,
@@ -151,18 +163,25 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
         } = values;
         const contactMerchant = [values.merchantPhone];
 
-        const serachMerchantResult = await apiService.searchMerchant(
-          merchantName,
-          contactMerchant
-        );
+        let merchantId = '';
+        let serachMerchantResult;
 
-        if (serachMerchantResult.merchant) {
-          merchantId = serachMerchantResult.merchant.merchantId;
-        } else {
-          const newMerchant = await apiService.AddMerchantData({
-            name: custName,
+        try {
+          serachMerchantResult = await searchMerchant(
+            merchantName,
+            contactMerchant
+          );
+
+          if (serachMerchantResult.merchant) {
+            merchantId = serachMerchantResult.merchant.merchantId;
+          } else {
+            throw new Error('Merchant not found');
+          }
+        } catch (error) {
+          const newMerchant = await AddMerchantData({
+            name: merchantName,
             shopName: shopName,
-            contact: contact,
+            contact: contactMerchant,
             address: {
               street: merchantStreet,
               city: merchantCity,
@@ -198,6 +217,159 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
             },
           },
           merchantId: merchantId,
+        });
+
+        formik.resetForm();
+        setAddModal(false);
+      } catch (err) {
+        console.error('Add customer error:', err);
+      }
+    },
+  });
+
+  const editFormik = useFormik({
+    initialValues: {
+      name: '',
+      itemQuantity: '',
+      phone: '',
+      altPhone: '',
+      street: '',
+      city: '',
+      zip: '',
+      itemName: '',
+      itemMaterial: '',
+      netWeight: '',
+      grossWeight: '',
+      purity: '',
+      goldRate: '',
+      totalAmount: '',
+      customerAmount: '',
+      merchantROI: '',
+      customerROI: '',
+      loanStartDate: '',
+      merchantName: '',
+      shopName: '',
+      merchantPhone: '',
+      merchantStreet: '',
+      merchantCity: '',
+      merchantZip: '',
+      dukandarAmount: '',
+    },
+    enableReinitialize: true, // Important to allow patching
+    validationSchema: Yup.object({
+      name: Yup.string().required('Name is required'),
+      itemQuantity: Yup.string().required('Quantity is required'),
+      phone: Yup.string()
+        .required('Phone number is required')
+        .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
+      street: Yup.string().required('Street is required'),
+      city: Yup.string().required('City is required'),
+      zip: Yup.string()
+        .required('Pin code is required')
+        .matches(/^\d{6}$/, 'Invalid Pin code'),
+      itemName: Yup.string().required('Item Name is required'),
+      itemMaterial: Yup.string().required('Item Type is required'),
+      netWeight: Yup.number().required('Net Weight is required').positive(),
+      grossWeight: Yup.number().required('Gross Weight is required').positive(),
+      purity: Yup.number().required('Purity is required').positive(),
+      goldRate: Yup.number().required('Gold Rate is required').positive(),
+      totalAmount: Yup.number().required('Total Amount is required').positive(),
+      customerAmount: Yup.number()
+        .required('Customer Amount is required')
+        .positive(),
+      merchantROI: Yup.number().required('Merchant ROI is required').positive(),
+      customerROI: Yup.number().required('Customer ROI is required').positive(),
+      loanStartDate: Yup.date()
+        .required('Loan Start Date is required')
+        .nullable(),
+      merchantName: Yup.string().required('Merchant Name is required'),
+      shopName: Yup.string().required('Shop Name is required'),
+      merchantPhone: Yup.string()
+        .required('Merchant Phone is required')
+        .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
+      merchantStreet: Yup.string().required('Merchant Address is required'),
+      merchantCity: Yup.string().required('Merchant Address is required'),
+      merchantZip: Yup.string().required('Merchant Address is required'),
+      dukandarAmount: Yup.string().required('Dukandar Amount is required'),
+    }),
+    onSubmit: async (values) => {
+      console.log('Submitting:', values);
+      try {
+        const custName = values.name;
+        const contact = [values.phone, values.altPhone];
+        const { street, city, zip } = values;
+
+        if (
+          editFormik.touched.name ||
+          editFormik.touched.phone ||
+          editFormik.touched.altPhone ||
+          editFormik.touched.street ||
+          editFormik.touched.city ||
+          editFormik.touched.zip
+        ) {
+          updateCustomer(kalam.customerDetails._id, {
+            name: custName,
+            contact: contact,
+            address: {
+              street: street,
+              city: city,
+              zip: Number(zip),
+            },
+          });
+        }
+
+        const {
+          merchantName,
+          shopName,
+          merchantStreet,
+          merchantCity,
+          merchantZip,
+        } = values;
+        const contactMerchant = [values.merchantPhone];
+
+        if (
+          editFormik.touched.merchantName ||
+          editFormik.touched.shopName ||
+          editFormik.touched.merchantCity ||
+          editFormik.touched.merchantPhone ||
+          editFormik.touched.merchantStreet ||
+          editFormik.touched.merchantZip
+        ) {
+          updateMerchant(kalam.merchantDetails._id, {
+            name: merchantName,
+            shopName: shopName,
+            contact: contactMerchant,
+            address: {
+              street: merchantStreet,
+              city: merchantCity,
+              zip: Number(merchantZip),
+            },
+          });
+        }
+
+        // Assuming addData is a function that handles the submission
+        updateLoan(kalam._id, {
+          loans: {
+            details: {
+              name: values.itemName,
+              number: Number(values.itemQuantity),
+              materialType: values.itemMaterial,
+              netWeight: Number(values.netWeight),
+              grossWeight: Number(values.grossWeight),
+              purity: Number(values.purity),
+              goldRateAtLoan: Number(values.goldRate),
+            },
+
+            loanDetails: {
+              totalAmt: Number(values.totalAmount),
+              customerAmt: Number(values.customerAmount),
+              dukandarAmt: Number(values.dukandarAmount),
+              merchantROI: Number(values.merchantROI),
+              customerROI: Number(values.customerROI),
+              loanStartDate: values.loanStartDate,
+              validity: 'valid',
+            },
+          },
         });
 
         formik.resetForm();
@@ -408,7 +580,6 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
           helperText: formik.touched.customerROI && formik.errors.customerROI,
         },
         {
-          label: 'Loan Start Date',
           type: 'date',
           name: 'loanStartDate',
           value: formik.values.loanStartDate,
@@ -497,6 +668,14 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
       ],
     },
   ];
+
+  const deleteloan = async () => {
+    try {
+      deleteLoan(kalam._id);
+    } catch (error) {
+      console.error('error:', error);
+    }
+  };
 
   return (
     <>
@@ -676,7 +855,38 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
               color="secondary"
               sx={{ marginLeft: '8px' }}
               onClick={() => {
-                console.log('hello');
+                editFormik.setValues({
+                  name: kalam.customerDetails.name || '',
+                  phone: kalam.customerDetails.contact[0] || '',
+                  altPhone: kalam.customerDetails.contact[1] || '',
+                  street: kalam.customerDetails.address.street || '',
+                  city: kalam.customerDetails.address.city || '',
+                  zip: kalam.customerDetails.address.zip || '',
+                  itemName: kalam.kalam.details.name || '',
+                  itemQuantity: String(kalam.kalam.details.number) || '',
+                  itemMaterial: kalam.kalam.details.materialType || '',
+                  netWeight: String(kalam.kalam.details.netWeight) || '',
+                  grossWeight: String(kalam.kalam.details.grossWeight) || '',
+                  purity: String(kalam.kalam.details.purity) || '',
+                  goldRate: String(kalam.kalam.details.goldRateAtLoan) || '',
+                  totalAmount: String(kalam.kalam.loanDetails.totalAmt) || '',
+                  customerAmount:
+                    String(kalam.kalam.loanDetails.customerAmt) || '',
+                  dukandarAmount:
+                    String(kalam.kalam.loanDetails.dukandarAmt) || '',
+                  merchantROI:
+                    String(kalam.kalam.loanDetails.merchantROI) || '',
+                  customerROI:
+                    String(kalam.kalam.loanDetails.customerROI) || '',
+                  loanStartDate: kalam.kalam.loanDetails.loanStartDate || '',
+                  merchantName: kalam.merchantDetails.name || '',
+                  shopName: kalam.merchantDetails.shopName || '',
+                  merchantPhone: kalam.merchantDetails.contact[0] || '',
+                  merchantStreet: kalam.merchantDetails.address.street || '',
+                  merchantCity: kalam.merchantDetails.address.city || '',
+                  merchantZip: kalam.merchantDetails.address.zip || '',
+                });
+                setEditModal(true);
               }}
             >
               Edit
@@ -685,6 +895,9 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
               variant="contained"
               color="error"
               sx={{ marginLeft: '8px' }}
+              onClick={() => {
+                deleteloan();
+              }}
             >
               Delete
             </Button>
@@ -795,7 +1008,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
                   </Typography>
                   <Grid container spacing={2}>
                     {section.fields.map((field, idx) => (
-                      <Grid item  xl={6} lg={6} md={6} sm={6} xs={12} key={idx}>
+                      <Grid item xl={6} lg={6} md={6} sm={6} xs={12} key={idx}>
                         <TextField fullWidth {...field} />
                       </Grid>
                     ))}
@@ -811,6 +1024,87 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
             >
               Add Kalam
             </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      {/* For edit kalam */}
+      <Dialog
+        open={editModal}
+        onClose={() => setEditModal(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogContent>
+          {/* Customer Information */}
+          <Box
+            sx={{ mt: 2 }}
+            component="form"
+            onSubmit={editFormik.handleSubmit}
+          >
+            <Box sx={{ mt: 2 }}>
+              {formSections.map((section, index) => (
+                <Box key={index} sx={{ mb: 4 }}>
+                  <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                    {section.title}
+                  </Typography>
+                  <Grid container spacing={2}>
+                    {section.fields.map((field, idx) => {
+                      const formikObj = {
+                        ...field,
+                        value:
+                          editFormik.values[
+                            field.name as keyof typeof editFormik.values
+                          ],
+                        onChange: editFormik.handleChange,
+                        onBlur: editFormik.handleBlur,
+                        error:
+                          editFormik.touched[
+                            field.name as keyof typeof editFormik.touched
+                          ] &&
+                          Boolean(
+                            editFormik.errors[
+                              field.name as keyof typeof editFormik.errors
+                            ]
+                          ),
+                        helperText:
+                          editFormik.touched[
+                            field.name as keyof typeof editFormik.touched
+                          ] &&
+                          editFormik.errors[
+                            field.name as keyof typeof editFormik.errors
+                          ],
+                      };
+                      return (
+                        <Grid
+                          item
+                          xl={6}
+                          lg={6}
+                          md={6}
+                          sm={6}
+                          xs={12}
+                          key={idx}
+                        >
+                          <TextField fullWidth {...formikObj} />
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </Box>
+              ))}
+            </Box>
+
+            <Box
+              sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+            >
+              <Button
+                variant="contained"
+                sx={{ width: '60%', mt: 4 }}
+                type="submit"
+              >
+                Save Changes
+              </Button>
+            </Box>
           </Box>
         </DialogContent>
       </Dialog>

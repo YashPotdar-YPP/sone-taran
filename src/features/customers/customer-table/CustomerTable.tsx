@@ -38,7 +38,7 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
   const [selectedCustomer, setSelectedCustomer] =
     useState<CustomerDetails | null>(null);
   const [addModal, setAddModal] = useState(false);
-  const { addData } = useCustomerData();
+  const { addCustomerData } = useCustomerData();
 
   const formik = useFormik({
     initialValues: {
@@ -63,7 +63,7 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
     onSubmit: async (values) => {
       console.log('Submitting:', values);
       try {
-        addData({
+        addCustomerData({
           name: values.name,
           contact: [values.phone, values.altPhone],
           address: {

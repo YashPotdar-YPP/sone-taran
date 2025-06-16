@@ -1,7 +1,6 @@
 import { createContext, useState, useCallback, ReactNode } from 'react';
-import apiService from '../services/apiService';
 import { Kalam } from '../features/kalams/models/Kalam';
-import { AddKalam } from '../services/apiService';
+import apiService, { AddKalam, EditLoan } from '../services/apiService';
 interface KalamsDataContextProps {
   data: Kalam[];
   loading: boolean;
@@ -9,6 +8,8 @@ interface KalamsDataContextProps {
   fetchData: () => void;
   invalidateCache: () => void;
   addData: (newKalam: AddKalam) => void;
+  updateLoan: (_id: string, editLoan: EditLoan) => void;
+  deleteLoan: (_id: string) => void;
 }
 
 const KalamsDataContext = createContext<KalamsDataContextProps | undefined>(
@@ -59,9 +60,60 @@ export const KalamsDataProvider = ({ children }: { children: ReactNode }) => {
     [fetchData]
   );
 
+  const updateLoan = useCallback(
+    async (_id: string, editLoan: EditLoan) => {
+      try {
+        setLoading(true);
+        setError(null);
+        await apiService.updateLoan(_id, editLoan);
+        await fetchData();
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error);
+        } else {
+          setError(new Error('An unknown error occurred'));
+        }
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchData]
+  );
+
+  const deleteLoan = useCallback(
+    async (_id: string) => {
+      try {
+        setLoading(true);
+        setError(null);
+        await apiService.deleteLoan(_id);
+        await fetchData();
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error);
+        } else {
+          setError(new Error('An unknown error occurred'));
+        }
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchData]
+  );
+
   return (
     <KalamsDataContext.Provider
-      value={{ data, loading, error, fetchData, invalidateCache, addData }}
+      value={{
+        data,
+        loading,
+        error,
+        fetchData,
+        invalidateCache,
+        addData,
+        updateLoan,
+        deleteLoan,
+      }}
     >
       {children}
     </KalamsDataContext.Provider>

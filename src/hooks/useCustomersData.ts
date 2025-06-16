@@ -1,7 +1,7 @@
 import useCustomersDataContext from "./useCustomerDataContext";
 
 const useCustomerData = () => {
-  const { data, loading, error, fetchData, invalidateCache, addData } =
+  const { data, loading, error, fetchData, invalidateCache, addCustomerData, searchCustomer, updateCustomer, deleteCustomer } =
     useCustomersDataContext();
 
   const fetchIfNeeded = () => {
@@ -10,7 +10,7 @@ const useCustomerData = () => {
     }
   };
 
-  return { data, loading, error, fetchIfNeeded, invalidateCache, addData };
+  return { data, loading, error, fetchIfNeeded, invalidateCache, addCustomerData, searchCustomer, updateCustomer, deleteCustomer };
 };
 
 export default useCustomerData;

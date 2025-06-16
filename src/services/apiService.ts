@@ -33,7 +33,6 @@ export interface AddKalam {
     },
   }
   merchantId: string,
-
 }
 
 export interface Customer {
@@ -47,7 +46,6 @@ export interface Customer {
 }
 
 export interface EditCustomer {
-  customerId: string,
   name: string;
   contact: string[];
   address: {
@@ -56,6 +54,30 @@ export interface EditCustomer {
     zip: number;
   };
 }
+
+export interface EditLoan {
+  loans: {
+    details: {
+      number: number,
+      name: string,
+      materialType: string,
+      netWeight: number,
+      grossWeight: number,
+      purity: number,
+      goldRateAtLoan: number,
+    }
+    loanDetails: {
+      totalAmt: number,
+      customerAmt: number,
+      dukandarAmt: number,
+      customerROI: number,
+      merchantROI: number,
+      loanStartDate: string,
+      validity: string,
+    },
+  }
+}
+
 export interface AddMerchant {
   name: string;
   shopName: string;
@@ -66,20 +88,24 @@ export interface AddMerchant {
     zip: number;
   };
 }
+
+export interface EditMerchant {
+  name: string,
+  shopName: string,
+  address: {
+    street: string,
+    city: string,
+    zip: number
+  },
+  contact: string[]
+}
+
 // API methods
+
+// Kalam
 const fetchKalamsData = async () => {
   try {
     const response = await apiClient.get("/loan/getLoans");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching Kalams data:", error);
-    throw error;
-  }
-};
-
-const fetchCustomerData = async () => {
-  try {
-    const response = await apiClient.get("/customer/getCustomers");
     return response.data;
   } catch (error) {
     console.error("Error fetching Kalams data:", error);
@@ -101,6 +127,39 @@ const AddKalamsData = async (KalamData: AddKalam) => {
 
 };
 
+const updateLoan = async (_id: string, editLoan: EditLoan) => {
+  try {
+    const response = await apiClient.patch(`/loan/updateLoan/${_id}`, editLoan)
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) return null;
+    throw error;
+  }
+}
+
+const deleteLoan = async (_id: string) => {
+  try {
+    const response = await apiClient.delete(`/loan/deleteLoan/${_id}`)
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) return null;
+    throw error;
+  }
+}
+
+
+//Customer 
+const fetchCustomerData = async () => {
+  try {
+    const response = await apiClient.get("/customer/getCustomers");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching Kalams data:", error);
+    throw error;
+  }
+};
+
+
 const AddCustomerData = async (CustomerData: Customer) => {
 
   try {
@@ -114,33 +173,9 @@ const AddCustomerData = async (CustomerData: Customer) => {
   }
 };
 
-const AddMerchantData = async (MerchantData: AddMerchant) => {
-
-  try {
-    const response = await apiClient.post("/merchant/addMerchant",
-      MerchantData
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching Kalams data:", error);
-    throw error;
-  }
-};
-
-
 const searchCustomer = async (name: string, contact: string[]) => {
   try {
     const response = await apiClient.post("/customer/search", { name, contact });
-    return response.data;
-  } catch (error: any) {
-    if (error.response?.status === 404) return null;
-    throw error;
-  }
-};
-
-const searchMerchant = async (name: string, contact: string[]) => {
-  try {
-    const response = await apiClient.post("/merchant/searchMerchant", { name, contact });
     return response.data;
   } catch (error: any) {
     if (error.response?.status === 404) return null;
@@ -161,24 +196,65 @@ const updateCustomer = async (_id: string, updateCustomer: EditCustomer) => {
 const deleteCustomer = async (_id: string) => {
   try {
     const response = await apiClient.delete(`/customer/deleteCustomer/${_id}`)
-    fetchCustomerData();
     return response.data;
   } catch (error: any) {
     if (error.response?.status === 404) return null;
     throw error;
   }
 }
+
+// Merchant
+const AddMerchantData = async (MerchantData: AddMerchant) => {
+
+  try {
+    const response = await apiClient.post("/merchant/addMerchant",
+      MerchantData
+    );
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching Kalams data:", error);
+    throw error;
+  }
+};
+
+const searchMerchant = async (name: string, contact: string[]) => {
+  try {
+    const response = await apiClient.post("/merchant/searchMerchant", { name, contact });
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) return null;
+    throw error;
+  }
+};
+
+const updateMerchant = async (_id: string, editMerchant: EditMerchant) => {
+  try {
+    const response = await apiClient.patch(`/merchant/updateMerchant/${_id}`, editMerchant)
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) return null;
+    throw error;
+  }
+}
+
 // Export the API methods
 export default {
+  // Kalam API
   fetchKalamsData,
+  AddKalamsData,
+  updateLoan,
+  deleteLoan,
+  // Customer API
   fetchCustomerData,
   AddCustomerData,
-  AddKalamsData,
-  AddMerchantData,
-  searchCustomer,
-  searchMerchant,
   updateCustomer,
-  deleteCustomer
+  deleteCustomer,
+  searchCustomer,
+  // Merchant API
+  searchMerchant,
+  AddMerchantData,
+  updateMerchant
 };
 
 apiClient.interceptors.response.use(
