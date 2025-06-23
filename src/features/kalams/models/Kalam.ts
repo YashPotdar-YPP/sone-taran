@@ -25,9 +25,10 @@ export interface KalamDetails {
   totalAmt: number;
   customerAmt: number;
   dukandarAmt: number;
+  dueAmount: number,
   customerROI: number;
   merchantROI: number;
-  loanStartDate: string; // Consider using Date type if you will parse it
+  loanStartDate: string;
   validity: string;
 }
 

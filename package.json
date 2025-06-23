@@ -29,6 +29,7 @@
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^7.1.5",
     "sass": "^1.85.0",
     "yup": "^1.6.1"

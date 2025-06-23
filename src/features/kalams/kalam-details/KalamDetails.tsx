@@ -20,15 +20,21 @@ import useCustomerData from '../../../hooks/useCustomersData';
 
 const KalamDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+
+  // data for the specification kalam 
   const { state: data } = useLocation() as { state: any };
+
+  // For edit Modal
   const [editModal, setEditModal] = useState(false);
+
+  // Custom hooks
   const { deleteLoan, updateLoan } = useKalamsData();
   const { updateMerchant } = useMerchantData();
   const { updateCustomer } = useCustomerData();
 
   if (!data) return <Typography>Loading…</Typography>;
 
-  /** Helper to render a label–value row */
+  //  Helper to render a label–value row
   const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
     <Grid container spacing={1}>
       <Grid item xs={5} sm={4} md={3}>
@@ -58,6 +64,7 @@ const KalamDetails: React.FC = () => {
 
   const navigate = useNavigate();
 
+  // Formik for edit form
   const editFormik = useFormik({
     initialValues: {
       name: '',
@@ -126,6 +133,7 @@ const KalamDetails: React.FC = () => {
     onSubmit: async (values) => {
       console.log('Submitting:', values);
       try {
+        // Customer
         const custName = values.name;
         const contact = [values.phone, values.altPhone];
         const { street, city, zip } = values;
@@ -138,6 +146,7 @@ const KalamDetails: React.FC = () => {
           editFormik.touched.city ||
           editFormik.touched.zip
         ) {
+          // updating the customer
           updateCustomer(data.customerDetails._id, {
             name: custName,
             contact: contact,
@@ -149,6 +158,7 @@ const KalamDetails: React.FC = () => {
           });
         }
 
+        //Merchant
         const {
           merchantName,
           shopName,
@@ -166,6 +176,7 @@ const KalamDetails: React.FC = () => {
           editFormik.touched.merchantStreet ||
           editFormik.touched.merchantZip
         ) {
+          // for updating merchant
           updateMerchant(data.merchantDetails._id, {
             name: merchantName,
             shopName: shopName,
@@ -178,7 +189,7 @@ const KalamDetails: React.FC = () => {
           });
         }
 
-        // Assuming addData is a function that handles the submission
+        // For updating the kalam
         updateLoan(data._id, {
           loans: {
             details: {
@@ -211,6 +222,7 @@ const KalamDetails: React.FC = () => {
     },
   });
 
+  // Inut Field specification
   const formSections = [
     {
       title: 'Customer Information',
@@ -527,6 +539,7 @@ const KalamDetails: React.FC = () => {
     },
   ];
 
+  // for deleting the kalam
   const deleteloan = async () => {
     try {
       deleteLoan(data._id);
@@ -624,6 +637,7 @@ const KalamDetails: React.FC = () => {
           />
         </Section>
 
+        {/* for edit an delete button  */}
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Button
             variant="contained"

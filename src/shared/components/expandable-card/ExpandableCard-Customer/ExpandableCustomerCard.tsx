@@ -24,6 +24,7 @@ import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { TailSpin } from 'react-loader-spinner';
 import useCustomerData from '../../../../hooks/useCustomersData';
 
 interface ExpandableCardProps {
@@ -31,11 +32,16 @@ interface ExpandableCardProps {
 }
 
 const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
+  // for expanding the card
   const [expanded, setExpanded] = useState(false);
 
+  // Opening the modal
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+
+  // Custom hooks
   const { addCustomerData, updateCustomer, deleteCustomer } = useCustomerData();
+
   const navigate = useNavigate();
 
   // Toggle the expanded state when the card is clicked
@@ -43,6 +49,54 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
     setExpanded(!expanded);
   };
 
+  // For Loader
+  const [loading, setLoading] = useState<boolean>(false);
+  if (loading) {
+    return (
+      <Box>
+        <Dialog
+          open={loading}
+          PaperProps={{
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none',
+            },
+          }}
+        >
+          <DialogContent
+            sx={{
+              background: 'transparent !important',
+              boxShadow: 'none',
+              padding: 0,
+            }}
+          >
+            <Box
+              sx={{
+                background: 'transparent',
+                boxShadow: 'none',
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+            >
+              <TailSpin
+                visible={true}
+                height="80"
+                width="80"
+                color="#1976d2"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </Box>
+          </DialogContent>
+        </Dialog>
+      </Box>
+    );
+  }
+
+  // formik for edit form
   const editFormik = useFormik({
     initialValues: {
       name: '',
@@ -67,6 +121,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
     onSubmit: async (values) => {
       console.log('Updating:', values);
       try {
+        setLoading(true);
         updateCustomer(customer._id, {
           name: values.name,
           contact: [values.phone],
@@ -76,6 +131,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
             zip: Number(values.zip),
           },
         });
+        setLoading(false);
         setEditModal(false);
         editFormik.resetForm();
       } catch (err) {
@@ -84,6 +140,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
     },
   });
 
+  // formik for add form
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -107,6 +164,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
     onSubmit: async (values) => {
       console.log('Submitting:', values);
       try {
+        setLoading(true);
         addCustomerData({
           name: values.name,
           contact: [values.phone, values.altPhone],
@@ -119,12 +177,14 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
 
         formik.resetForm();
         setAddModal(false);
+        setLoading(false);
       } catch (err) {
         console.error('Add customer error:', err);
       }
     },
   });
 
+  // Input box specification
   const formSections = [
     {
       title: 'Customer Information',
@@ -188,6 +248,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
     },
   ];
 
+  // for deleting the customer
   const deleteCust = async () => {
     try {
       deleteCustomer(customer._id);
@@ -198,6 +259,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
 
   return (
     <>
+      {/* For card  */}
       <Card sx={{ cursor: 'pointer', mt: 2 }}>
         <Box onClick={handleCardClick}>
           <Box
@@ -325,6 +387,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
         </Collapse>
       </Card>
 
+      {/* for the add button at the bottom  */}
       <Paper
         sx={{
           position: 'fixed',
@@ -365,6 +428,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
         </BottomNavigation>
       </Paper>
 
+      {/* Modal for the add  */}
       <Dialog
         open={addModal}
         onClose={() => setAddModal(false)}
@@ -406,7 +470,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ customer }) => {
         </DialogContent>
       </Dialog>
 
-      {/* For edit Customer */}
+      {/* Modal For edit Customer */}
       <Dialog
         open={editModal}
         onClose={() => setEditModal(false)}

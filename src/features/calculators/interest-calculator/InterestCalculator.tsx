@@ -35,7 +35,6 @@ const InterestCalculator = () => {
     InterestBreakdown[]
   >([]);
 
-  // Formik configuration
   const formik = useFormik({
     initialValues: {
       startDate: null as Date | null,
@@ -75,9 +74,11 @@ const InterestCalculator = () => {
         roundOffLoanDuration,
         interestType,
       } = values;
+
       const duration = roundOffLoanDuration
         ? calculateRoundedMonthsAndDays(startDate, endDate, waiveOneDayInterest)
         : calculateMonthsAndDays(startDate, endDate);
+
       const compoundInterest = calculateAnnualInterest(
         Number(loanAmount),
         Number(roi) * 12,
@@ -85,6 +86,7 @@ const InterestCalculator = () => {
         duration.days,
         interestType === InterestType.Compound
       );
+
       const compoundInterestBreakdown = interestBreakdown(
         Number(loanAmount),
         Number(roi) * 12,
@@ -92,6 +94,7 @@ const InterestCalculator = () => {
         duration.days,
         interestType === InterestType.Compound
       );
+
       setTotalInterest(compoundInterest);
       setTotalInterestBreakdown(compoundInterestBreakdown);
     },
@@ -106,7 +109,10 @@ const InterestCalculator = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Container maxWidth="md">
-        <Paper elevation={3} sx={{ padding: 4, marginTop: 1.8 }}>
+        <Paper
+          elevation={3}
+          sx={{ padding: { xs: 2, sm: 4 }, marginTop: { xs: 2, sm: 3 } }}
+        >
           <Typography variant="h6" align="center" sx={{ mb: 4 }}>
             Compound Interest Calculator
           </Typography>
@@ -115,7 +121,14 @@ const InterestCalculator = () => {
             onSubmit={formik.handleSubmit}
             sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
           >
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
+            {/* Date Pickers */}
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                gap: 3,
+              }}
+            >
               <DatePicker
                 label="Start Date"
                 value={formik.values.startDate}
@@ -150,7 +163,15 @@ const InterestCalculator = () => {
                 }}
               />
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
+
+            {/* Loan Amount and ROI */}
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                gap: 3,
+              }}
+            >
               <TextField
                 fullWidth
                 type="number"
@@ -180,6 +201,8 @@ const InterestCalculator = () => {
                 helperText={formik.touched.roi && formik.errors.roi}
               />
             </Box>
+
+            {/* Options */}
             <Box>
               <FormControlLabel
                 control={
@@ -213,7 +236,6 @@ const InterestCalculator = () => {
                     value={InterestType.Compound}
                     label={InterestType.Compound + ' Interest'}
                   />
-
                   <FormControlLabel
                     control={<Radio />}
                     value={InterestType.Simple}
@@ -222,8 +244,15 @@ const InterestCalculator = () => {
                 </RadioGroup>
               </FormControl>
             </Box>
+
+            {/* Buttons */}
             <Box
-              sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}
+              sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
+                justifyContent: 'space-between',
+                gap: 2,
+              }}
             >
               <Button
                 fullWidth
@@ -244,6 +273,8 @@ const InterestCalculator = () => {
               </Button>
             </Box>
           </Box>
+
+          {/* Result Summary */}
           {totalInterest !== null && (
             <Box
               sx={{
@@ -259,6 +290,8 @@ const InterestCalculator = () => {
               </Typography>
             </Box>
           )}
+
+          {/* Breakdown Table */}
           {totalInterestBreakdown?.length > 0 && (
             <Box
               sx={{
@@ -269,8 +302,8 @@ const InterestCalculator = () => {
                 backgroundColor: '#f9f9f9',
               }}
             >
-              <Typography variant="h6">
-                Breakdown: {formatCurrency(totalInterest)}
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                Breakdown
               </Typography>
               <CompoundInterestTable data={totalInterestBreakdown as any} />
             </Box>

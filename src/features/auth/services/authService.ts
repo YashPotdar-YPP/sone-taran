@@ -79,7 +79,7 @@ export const requestEmailOtpApi = async (email: string | { email: string }): Pro
 
 // Verifing the email OTP
 export const verifyEmailOtpApi = async (
-  otp: number,
+  otp: string,
   token: string
 ): Promise<{ token: string } | null> => {
   try {

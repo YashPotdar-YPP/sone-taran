@@ -6,14 +6,21 @@ import { useAuth } from '../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const OtpVerify: React.FC = () => {
-  const { verifyOtp, verifyEmailOtp, requestOtp, phoneNumber, otpSent } =
-    useAuth();
+  const {
+    verifyOtp,
+    verifyEmailOtp,
+    requestOtp,
+    phoneNumber,
+    otpSent,
+    requestEmailOtp,
+  } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   const otpfield = location.state;
+  console.log(otpfield.emaillogin);
 
   const formikPhoneOtp = useFormik({
     initialValues: {
@@ -53,7 +60,7 @@ const OtpVerify: React.FC = () => {
       setError(null);
       setSuccess(null);
 
-      const success = await verifyEmailOtp(Number(values.EmailOtp));
+      const success = await verifyEmailOtp(values.EmailOtp);
       console.log(success);
 
       if (!success) {
@@ -74,6 +81,14 @@ const OtpVerify: React.FC = () => {
     }
   };
 
+  const resendEmailOtp = async () => {
+    try {
+      await requestEmailOtp(otpfield.email);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to send OTP. Please try again.');
+    }
+  };
   return (
     <>
       <CssBaseline />
@@ -102,7 +117,7 @@ const OtpVerify: React.FC = () => {
           }}
           component="form"
           onSubmit={
-            otpfield === true
+            otpfield.emaillogin === true
               ? formikEmailOtp.handleSubmit
               : formikPhoneOtp.handleSubmit
           }
@@ -131,32 +146,32 @@ const OtpVerify: React.FC = () => {
               fullWidth
               type="text"
               id="OTP"
-              name={otpfield === true ? 'EmailOtp' : 'PhoneOtp'}
+              name={otpfield.emaillogin === true ? 'EmailOtp' : 'PhoneOtp'}
               label="OTP"
               value={
-                otpfield === true
+                otpfield.emaillogin === true
                   ? formikEmailOtp.values.EmailOtp
                   : formikPhoneOtp.values.PhoneOtp
               }
               onChange={
-                otpfield === true
+                otpfield.emaillogin === true
                   ? formikEmailOtp.handleChange
                   : formikPhoneOtp.handleChange
               }
               onBlur={
-                otpfield === true
+                otpfield.emaillogin === true
                   ? formikEmailOtp.handleBlur
                   : formikPhoneOtp.handleBlur
               }
               error={
-                otpfield === true
+                otpfield.emaillogin === true
                   ? formikEmailOtp.touched.EmailOtp &&
                     Boolean(formikEmailOtp.errors.EmailOtp)
                   : formikPhoneOtp.touched.PhoneOtp &&
                     Boolean(formikPhoneOtp.errors.PhoneOtp)
               }
               helperText={
-                otpfield === true
+                otpfield.emaillogin === true
                   ? formikEmailOtp.touched.EmailOtp &&
                     formikEmailOtp.errors.EmailOtp
                   : formikPhoneOtp.touched.PhoneOtp &&
@@ -203,29 +218,32 @@ const OtpVerify: React.FC = () => {
                   },
                 }}
                 onClick={() => {
-                  resendOtp();
+                  otpfield.emaillogin === true ? resendEmailOtp() : resendOtp();
                 }}
               >
                 Resend Otp ?
               </Button>
             </Box>
-            <Box
-              sx={{
-                mt: 2,
-                textAlign: 'center',
-                fontSize: 'larger',
-                display: {
-                  xl: 'none',
-                  lg: 'none',
-                  md: 'none',
-                  sm: 'none',
-                  xs: 'block',
-                },
-              }}
-            >
-            <Box sx={{ mt: 2, textAlign: 'center', fontSize: 'larger' }}>
-              OTP :- {otpSent}
-            </Box>
+            {otpfield.emaillogin === true ? (
+              ' '
+            ) : (
+              <Box
+                sx={{
+                  mt: 2,
+                  textAlign: 'center',
+                  fontSize: 'larger',
+                  display: {
+                    xl: 'none',
+                    lg: 'none',
+                    md: 'none',
+                    sm: 'none',
+                    xs: 'block',
+                  },
+                }}
+              >
+                OTP :- {otpSent}
+              </Box>
+            )}
           </Box>
         </Box>
       </Box>

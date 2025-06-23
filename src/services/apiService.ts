@@ -26,6 +26,7 @@ export interface AddKalam {
       totalAmt: number,
       customerAmt: number,
       dukandarAmt: number,
+      dueAmount: number,
       customerROI: number,
       merchantROI: number,
       loanStartDate: string,
@@ -70,6 +71,7 @@ export interface EditLoan {
       totalAmt: number,
       customerAmt: number,
       dukandarAmt: number,
+      dueAmount: number,
       customerROI: number,
       merchantROI: number,
       loanStartDate: string,
@@ -83,8 +85,8 @@ export interface AddMerchant {
   shopName: string;
   contact: string[];
   address: {
-    street: string;
-    city: string;
+    street: string | undefined;
+    city: string | undefined;
     zip: number;
   };
 }
