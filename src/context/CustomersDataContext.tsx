@@ -44,23 +44,25 @@ export const CustomerDataProvider = ({ children }: { children: ReactNode }) => {
     fetchData();
   }, [fetchData]);
 
-  const addCustomerData = useCallback(
-    async (newCustomer: Customer) => {
-      try {
-        setLoading(true);
-        setError(null);
-        await apiService.AddCustomerData(newCustomer);
-        await fetchData();
-      } catch (err) {
-        setError(
-          err instanceof Error ? err : new Error('Failed to add customer')
-        );
-      } finally {
-        setLoading(false);
-      }
-    },
-    [fetchData]
-  );
+const addCustomerData = useCallback(
+  async (newCustomer: Customer) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const createdCustomer = await apiService.AddCustomerData(newCustomer);
+      await fetchData();
+      return createdCustomer; // ✅ Return this!
+    } catch (err) {
+      setError(
+        err instanceof Error ? err : new Error('Failed to add customer')
+      );
+      return null; // fallback
+    } finally {
+      setLoading(false);
+    }
+  },
+  [fetchData]
+);
 
   const updateCustomer = useCallback(
     async (_id: string, editCustomer: EditCustomer) => {

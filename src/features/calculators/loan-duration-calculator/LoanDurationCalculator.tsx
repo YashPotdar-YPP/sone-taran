@@ -1,15 +1,29 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, Box, Typography, Container, Paper, Checkbox, FormControlLabel } from '@mui/material';
+import {
+  Button,
+  Box,
+  Typography,
+  Container,
+  Paper,
+  Checkbox,
+  FormControlLabel,
+} from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DurationResult } from '../../../models/DurationResult';
-import { calculateRoundedMonthsAndDays, calculateMonthsAndDays } from '../../../utils/CountDaysUtil';
+import {
+  calculateRoundedMonthsAndDays,
+  calculateMonthsAndDays,
+} from '../../../utils/CountDaysUtil';
 
 const LoanDurationCalculator = () => {
-  const [actualDuration, setActualDuration] = useState<DurationResult | null>(null);
-  const [roundOffDuration, setRoundOffDuration] = useState<DurationResult | null>(null);
+  const [actualDuration, setActualDuration] = useState<DurationResult | null>(
+    null
+  );
+  const [roundOffDuration, setRoundOffDuration] =
+    useState<DurationResult | null>(null);
 
   const formik = useFormik({
     initialValues: {
@@ -21,24 +35,32 @@ const LoanDurationCalculator = () => {
       startDate: Yup.date().required('Start date is required'),
       endDate: Yup.date()
         .required('End date is required')
-        .test('is-greater', 'End date must be greater than start date', function (value) {
-          const { startDate } = this.parent;
-          return value && startDate && new Date(value) > new Date(startDate);
-        }),
+        .test(
+          'is-greater',
+          'End date must be greater than start date',
+          function (value) {
+            const { startDate } = this.parent;
+            return value && startDate && new Date(value) > new Date(startDate);
+          }
+        ),
     }),
     onSubmit: (values) => {
       const { startDate, endDate, waiveOneDayInterest } = values;
 
-      const roundedDuration: DurationResult = calculateRoundedMonthsAndDays(startDate, endDate, waiveOneDayInterest);
-      const actualDuration: DurationResult = calculateMonthsAndDays(startDate, endDate);
+      const rounded = calculateRoundedMonthsAndDays(
+        startDate,
+        endDate,
+        waiveOneDayInterest
+      );
+      const actual = calculateMonthsAndDays(startDate, endDate);
 
-      setRoundOffDuration(roundedDuration);
-      setActualDuration(actualDuration);
+      setRoundOffDuration(rounded);
+      setActualDuration(actual);
     },
   });
 
   const handleReset = () => {
-    formik.resetForm(); 
+    formik.resetForm();
     setRoundOffDuration(null);
     setActualDuration(null);
   };
@@ -46,21 +68,30 @@ const LoanDurationCalculator = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Container maxWidth="sm">
-        <Paper elevation={3} sx={{ padding: 4, marginTop: 4 }}>
-          <Typography variant="h4" align="center" gutterBottom>
-              Loan Duration
+        <Paper elevation={3} sx={{ padding: { xs: 2, sm: 4 }, mt: 4 }}>
+          <Typography variant="h5" align="center" gutterBottom>
+            Loan Duration Calculator
           </Typography>
-          <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 2 }}>
+
+          <Box
+            component="form"
+            onSubmit={formik.handleSubmit}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+          >
             <DatePicker
               label="Start Date"
               value={formik.values.startDate}
-              onChange={(newValue) => formik.setFieldValue('startDate', newValue)}
+              onChange={(newValue) =>
+                formik.setFieldValue('startDate', newValue)
+              }
               slotProps={{
                 textField: {
                   fullWidth: true,
-                  margin: 'normal',
-                  error: Boolean(formik.touched.startDate && formik.errors.startDate),
-                  helperText: formik.touched.startDate && formik.errors.startDate,
+                  error: Boolean(
+                    formik.touched.startDate && formik.errors.startDate
+                  ),
+                  helperText:
+                    formik.touched.startDate && formik.errors.startDate,
                 },
               }}
             />
@@ -71,8 +102,9 @@ const LoanDurationCalculator = () => {
               slotProps={{
                 textField: {
                   fullWidth: true,
-                  margin: 'normal',
-                  error: Boolean(formik.touched.endDate && formik.errors.endDate),
+                  error: Boolean(
+                    formik.touched.endDate && formik.errors.endDate
+                  ),
                   helperText: formik.touched.endDate && formik.errors.endDate,
                 },
               }}
@@ -87,35 +119,73 @@ const LoanDurationCalculator = () => {
               }
               label="1 Day Interest Free"
             />
-            {/* एक दिवसाचा व्याज माफ */}
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, gap: 2 }}>
-              <Button fullWidth color="primary" variant="contained" type="submit">
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
+                gap: 2,
+                mt: 2,
+              }}
+            >
+              <Button
+                fullWidth
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
                 Calculate
               </Button>
-              <Button fullWidth color="secondary" variant="outlined" onClick={handleReset}>
+              <Button
+                fullWidth
+                type="button"
+                variant="outlined"
+                onClick={handleReset}
+              >
                 Reset
               </Button>
             </Box>
           </Box>
+
+          {/* Results */}
           {actualDuration && (
-            <Box sx={{ mt: 3, p: 2, border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#f9f9f9' }}>
+            <Box
+              sx={{
+                mt: 4,
+                p: 2,
+                border: '1px solid #ccc',
+                borderRadius: 2,
+                backgroundColor: '#f9f9f9',
+              }}
+            >
               <Typography variant="h6">Actual Loan Duration:</Typography>
               <Typography variant="body1">
-                {actualDuration.totalMonths} month{actualDuration.totalMonths > 1 ? 's' : null}
+                {actualDuration.totalMonths} month
+                {actualDuration.totalMonths !== 1 && 's'}
               </Typography>
               <Typography variant="body1">
-                {actualDuration.days} day{actualDuration.days > 1 ? 's' : null}
+                {actualDuration.days} day{actualDuration.days !== 1 && 's'}
               </Typography>
             </Box>
           )}
+
           {roundOffDuration && (
-            <Box sx={{ mt: 3, p: 2, border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#f9f9f9' }}>
-              <Typography variant="h6">Round Off Loan Duration:</Typography>
+            <Box
+              sx={{
+                mt: 3,
+                p: 2,
+                border: '1px solid #ccc',
+                borderRadius: 2,
+                backgroundColor: '#f1f1f1',
+              }}
+            >
+              <Typography variant="h6">Rounded Loan Duration:</Typography>
               <Typography variant="body1">
-                {roundOffDuration.totalMonths} month{roundOffDuration.totalMonths > 1 ? 's' : null}
+                {roundOffDuration.totalMonths} month
+                {roundOffDuration.totalMonths !== 1 && 's'}
               </Typography>
               <Typography variant="body1">
-                {roundOffDuration.days} day{roundOffDuration.days > 1 ? 's' : null}
+                {roundOffDuration.days} day{roundOffDuration.days !== 1 && 's'}
               </Typography>
             </Box>
           )}

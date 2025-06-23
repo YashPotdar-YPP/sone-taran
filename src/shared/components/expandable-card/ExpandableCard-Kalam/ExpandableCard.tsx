@@ -34,27 +34,81 @@ import useKalamsData from '../../../../hooks/useKalamsData';
 import apiService from '../../../../services/apiService';
 import useCustomerData from '../../../../hooks/useCustomersData';
 import useMerchantData from '../../../../hooks/useMerchantData';
+import { TailSpin } from 'react-loader-spinner';
+
 interface ExpandableCardProps {
   kalam: Kalam;
 }
 
 const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
+  // Expanding cards
   const [expanded, setExpanded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+
+  // Custom Hooks
   const { addData, updateLoan, deleteLoan } = useKalamsData();
   const { updateCustomer } = useCustomerData();
   const { searchMerchant, AddMerchantData, updateMerchant } = useMerchantData();
+
+  // Opening modals
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
   // Toggle the expanded state when the card is
-
   const handleCardClick = () => {
     setExpanded(!expanded);
   };
 
   const navigate = useNavigate();
 
+  // For Loader
+  const [loading, setLoading] = useState<boolean>(false);
+  if (loading) {
+    return (
+      <Box>
+        <Dialog
+          open={loading}
+          PaperProps={{
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none',
+            },
+          }}
+        >
+          <DialogContent
+            sx={{
+              background: 'transparent !important',
+              boxShadow: 'none',
+              padding: 0,
+            }}
+          >
+            <Box
+              sx={{
+                background: 'transparent',
+                boxShadow: 'none',
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+            >
+              <TailSpin
+                visible={true}
+                height="80"
+                width="80"
+                color="#1976d2"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </Box>
+          </DialogContent>
+        </Dialog>
+      </Box>
+    );
+  }
+
+  //  formik for add kalam form validation
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -74,6 +128,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
       customerAmount: '',
       merchantROI: '',
       customerROI: '',
+      dueAmount: '',
       loanStartDate: '',
       merchantName: '',
       shopName: '',
@@ -106,6 +161,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
         .positive(),
       merchantROI: Yup.number().required('Merchant ROI is required').positive(),
       customerROI: Yup.number().required('Customer ROI is required').positive(),
+      dueAmount: Yup.number().positive(),
       loanStartDate: Yup.date()
         .required('Loan Start Date is required')
         .nullable(),
@@ -123,6 +179,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
       console.log('Submitting:', values);
 
       try {
+        //Customer
         const custName = values.name;
         const contact = [values.phone, values.altPhone];
         const { street, city, zip } = values;
@@ -131,6 +188,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
         let searchResult;
 
         try {
+          // for searching if the customer exists
           searchResult = await apiService.searchCustomer(custName, contact);
 
           if (searchResult.customer) {
@@ -141,6 +199,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
         } catch (error) {
           console.warn('Customer not found. Creating new one...', error);
 
+          // for adding a new customer
           const newCustomer = await apiService.AddCustomerData({
             name: custName,
             contact: contact,
@@ -154,6 +213,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
           customerId = newCustomer.customerId;
         }
 
+        //Merchant
         const {
           merchantName,
           shopName,
@@ -167,6 +227,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
         let serachMerchantResult;
 
         try {
+          // For searching if the merchant exist
           serachMerchantResult = await searchMerchant(
             merchantName,
             contactMerchant
@@ -178,6 +239,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
             throw new Error('Merchant not found');
           }
         } catch (error) {
+          // For adding a new merchant
           const newMerchant = await AddMerchantData({
             name: merchantName,
             shopName: shopName,
@@ -192,7 +254,9 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
           merchantId = newMerchant.merchantId;
         }
 
-        // Assuming addData is a function that handles the submission
+        // Kalam
+        setLoading(true);
+        // For adding a new Kalam
         addData({
           customerId: customerId,
           loans: {
@@ -210,6 +274,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
               totalAmt: Number(values.totalAmount),
               customerAmt: Number(values.customerAmount),
               dukandarAmt: Number(values.dukandarAmount),
+              dueAmount: Number(values.dueAmount),
               merchantROI: Number(values.merchantROI),
               customerROI: Number(values.customerROI),
               loanStartDate: values.loanStartDate,
@@ -221,12 +286,14 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
 
         formik.resetForm();
         setAddModal(false);
+        setLoading(false);
       } catch (err) {
         console.error('Add customer error:', err);
       }
     },
   });
 
+  //  formik for edit kalam form validation
   const editFormik = useFormik({
     initialValues: {
       name: '',
@@ -244,6 +311,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
       goldRate: '',
       totalAmount: '',
       customerAmount: '',
+      dueAmount: '',
       merchantROI: '',
       customerROI: '',
       loanStartDate: '',
@@ -277,6 +345,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
       customerAmount: Yup.number()
         .required('Customer Amount is required')
         .positive(),
+      dueAmount: Yup.number().positive(),
       merchantROI: Yup.number().required('Merchant ROI is required').positive(),
       customerROI: Yup.number().required('Customer ROI is required').positive(),
       loanStartDate: Yup.date()
@@ -295,6 +364,8 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
     onSubmit: async (values) => {
       console.log('Submitting:', values);
       try {
+        // Customer
+
         const custName = values.name;
         const contact = [values.phone, values.altPhone];
         const { street, city, zip } = values;
@@ -307,6 +378,8 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
           editFormik.touched.city ||
           editFormik.touched.zip
         ) {
+          // for updating the customer
+
           updateCustomer(kalam.customerDetails._id, {
             name: custName,
             contact: contact,
@@ -318,6 +391,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
           });
         }
 
+        // Merchant
         const {
           merchantName,
           shopName,
@@ -335,6 +409,8 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
           editFormik.touched.merchantStreet ||
           editFormik.touched.merchantZip
         ) {
+          // for updating merchant
+
           updateMerchant(kalam.merchantDetails._id, {
             name: merchantName,
             shopName: shopName,
@@ -347,7 +423,9 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
           });
         }
 
-        // Assuming addData is a function that handles the submission
+        // for updating the kalam
+
+        setLoading(true);
         updateLoan(kalam._id, {
           loans: {
             details: {
@@ -364,6 +442,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
               totalAmt: Number(values.totalAmount),
               customerAmt: Number(values.customerAmount),
               dukandarAmt: Number(values.dukandarAmount),
+              dueAmount: Number(values.dueAmount),
               merchantROI: Number(values.merchantROI),
               customerROI: Number(values.customerROI),
               loanStartDate: values.loanStartDate,
@@ -374,12 +453,14 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
 
         formik.resetForm();
         setAddModal(false);
+        setLoading(false);
       } catch (err) {
         console.error('Add customer error:', err);
       }
     },
   });
 
+  // form specfication
   const formSections = [
     {
       title: 'Customer Information',
@@ -558,6 +639,16 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
             formik.touched.dukandarAmount && formik.errors.dukandarAmount,
         },
         {
+          label: 'Due Amount',
+          type: 'number',
+          name: 'dueAmount',
+          value: formik.values.dueAmount,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.dueAmount && Boolean(formik.errors.dueAmount),
+          helperText: formik.touched.dueAmount && formik.errors.dueAmount,
+        },
+        {
           label: 'Merchant ROI (pm)',
           type: 'number',
           name: 'merchantROI',
@@ -669,6 +760,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
     },
   ];
 
+  // for deleting kalam
   const deleteloan = async () => {
     try {
       deleteLoan(kalam._id);
@@ -679,6 +771,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
 
   return (
     <>
+      {/* Card for showing kalam  */}
       <Card
         sx={{
           cursor: 'pointer',
@@ -816,7 +909,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
                 >
                   Merchant:
                 </Typography>
-                {' Swapnil'}
+                {kalam.merchantDetails.name}
               </Typography>
               <Typography
                 sx={{ fontSize: '12px' }}
@@ -874,6 +967,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
                     String(kalam.kalam.loanDetails.customerAmt) || '',
                   dukandarAmount:
                     String(kalam.kalam.loanDetails.dukandarAmt) || '',
+                  dueAmount: String(kalam.kalam.loanDetails.dueAmount),
                   merchantROI:
                     String(kalam.kalam.loanDetails.merchantROI) || '',
                   customerROI:
@@ -905,6 +999,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
         </Collapse>
       </Card>
 
+      {/* modal for viewing kalma details  */}
       <Dialog open={modalOpen} onClose={() => setModalOpen(false)}>
         <DialogTitle>Kalam Details</DialogTitle>
         <DialogContent>
@@ -949,46 +1044,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
         </DialogContent>
       </Dialog>
 
-      <Paper
-        sx={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          background: 'none',
-          boxShadow: 'none',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          pr: { xl: 4, xs: 0 },
-          mb: 2,
-        }}
-        elevation={3}
-      >
-        <BottomNavigation
-          sx={{
-            height: '0',
-            background: 'none',
-            boxShadow: 'none',
-          }}
-        >
-          <BottomNavigationAction
-            label="Add"
-            sx={{ boxShadow: 'none' }}
-            icon={
-              <Fab
-                color="primary"
-                aria-label="add"
-                onClick={() => {
-                  setAddModal(true);
-                }}
-              >
-                <AddIcon />
-              </Fab>
-            }
-          />
-        </BottomNavigation>
-      </Paper>
-
+      {/* Model for adding new kalma */}
       <Dialog
         open={addModal}
         onClose={() => {
@@ -1108,6 +1164,47 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ kalam }) => {
           </Box>
         </DialogContent>
       </Dialog>
+
+      {/* for add button to add new kalam  */}
+      <Paper
+        sx={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: 'none',
+          boxShadow: 'none',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          pr: { xl: 4, xs: 0 },
+          mb: 2,
+        }}
+        elevation={3}
+      >
+        <BottomNavigation
+          sx={{
+            height: '0',
+            background: 'none',
+            boxShadow: 'none',
+          }}
+        >
+          <BottomNavigationAction
+            label="Add"
+            sx={{ boxShadow: 'none' }}
+            icon={
+              <Fab
+                color="primary"
+                aria-label="add"
+                onClick={() => {
+                  setAddModal(true);
+                }}
+              >
+                <AddIcon />
+              </Fab>
+            }
+          />
+        </BottomNavigation>
+      </Paper>
     </>
   );
 };

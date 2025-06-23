@@ -17,6 +17,7 @@ const KalamsDataContext = createContext<KalamsDataContextProps | undefined>(
 );
 
 export const KalamsDataProvider = ({ children }: { children: ReactNode }) => {
+  
   const [data, setData] = useState<Kalam[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);

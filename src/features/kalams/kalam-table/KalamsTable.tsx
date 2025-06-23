@@ -22,6 +22,8 @@ import {
   Box,
   Button,
   Fab,
+  InputBase,
+  Slider,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { Visibility } from '@mui/icons-material';
@@ -36,20 +38,81 @@ import * as Yup from 'yup';
 import useKalamsData from '../../../hooks/useKalamsData';
 import useMerchantData from '../../../hooks/useMerchantData';
 import useCustomerData from '../../../hooks/useCustomersData';
+import SearchIcon from '@mui/icons-material/Search';
+import { TailSpin } from 'react-loader-spinner';
+import TuneIcon from '@mui/icons-material/Tune';
 
 const KalamsTable: React.FC<KalamProps> = (props) => {
   const { data } = props;
+
+  // For geeting the data of customer and merchant
   const [selectedCustomer, setSelectedCustomer] =
     useState<CustomerDetails | null>(null);
   const [selectedKalam, setSelectedKalam] = useState<KalamDetails | null>(null);
+
   const navigate = useNavigate();
+
+  // For Opening the Model
+  const [sortModal, setSortModal] = useState<boolean>(false);
   const [addModal, setAddModal] = useState(false);
+
+  // Custom Hooks
   const { addData } = useKalamsData();
   const { searchMerchant, AddMerchantData } = useMerchantData();
   const { searchCustomer, addCustomerData } = useCustomerData();
 
   const calculateTodaysValue = () => '-';
-  
+
+  // For filter data
+  const [filteredData, setFilteredData] = useState(data);
+
+  // For Loader
+  const [loading, setLoading] = useState<boolean>(false);
+  if (loading) {
+    return (
+      <Box>
+        <Dialog
+          open={loading}
+          PaperProps={{
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none',
+            },
+          }}
+        >
+          <DialogContent
+            sx={{
+              background: 'transparent !important',
+              boxShadow: 'none',
+              padding: 0,
+            }}
+          >
+            <Box
+              sx={{
+                background: 'transparent',
+                boxShadow: 'none',
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+            >
+              <TailSpin
+                visible={true}
+                height="80"
+                width="80"
+                color="#1976d2"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </Box>
+          </DialogContent>
+        </Dialog>
+      </Box>
+    );
+  }
+  // Formik section for validation
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -67,6 +130,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
       goldRate: '',
       totalAmount: '',
       customerAmount: '',
+      dueAmount: '',
       merchantROI: '',
       customerROI: '',
       loanStartDate: '',
@@ -80,10 +144,14 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
-      itemQuantity: Yup.string().required('Quantity is required'),
+      itemQuantity: Yup.number().required('Quantity is required'),
       phone: Yup.string()
         .required('Phone number is required')
         .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
+      altPhone: Yup.string().matches(
+        /^\d{10}$/,
+        'Alternate Phone number should be exactly 10 numbers'
+      ),
       street: Yup.string().required('Street is required'),
       city: Yup.string().required('City is required'),
       zip: Yup.string()
@@ -99,6 +167,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
       customerAmount: Yup.number()
         .required('Customer Amount is required')
         .positive(),
+      dueAmount: Yup.number().positive(),
       merchantROI: Yup.number().required('Merchant ROI is required').positive(),
       customerROI: Yup.number().required('Customer ROI is required').positive(),
       loanStartDate: Yup.date()
@@ -111,13 +180,16 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
       merchantStreet: Yup.string().required('Merchant Address is required'),
       merchantCity: Yup.string().required('Merchant Address is required'),
-      merchantZip: Yup.string().required('Merchant Address is required'),
+      merchantZip: Yup.string()
+        .required('Merchant Address is required')
+        .matches(/^\d{6}$/, 'Invalid Pin code'),
       dukandarAmount: Yup.string().required('Dukandar Amount is required'),
     }),
     onSubmit: async (values) => {
       console.log('Submitting:', values);
 
       try {
+        // for searching and adding new customer data
         const custName = values.name;
         const contact = [values.phone, values.altPhone];
         const { street, city, zip } = values;
@@ -128,6 +200,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         try {
           searchResult = await searchCustomer(custName, contact);
 
+          console.log(searchResult.customer);
           if (searchResult.customer) {
             customerId = searchResult.customer.customerId;
           } else {
@@ -146,9 +219,12 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
             },
           });
 
+          console.log(newCustomer);
+
           customerId = newCustomer.customerId;
         }
 
+        // for searching and adding new merchant data
         const {
           merchantName,
           shopName,
@@ -189,7 +265,9 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
           merchantId = await newMerchant.merchantId;
         }
 
-        // Assuming addData is a function that handles the submission
+        setLoading(true);
+
+        // for adding the kalam data
         addData({
           customerId: customerId,
           loans: {
@@ -207,6 +285,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
               totalAmt: Number(values.totalAmount),
               customerAmt: Number(values.customerAmount),
               dukandarAmt: Number(values.dukandarAmount),
+              dueAmount: Number(values.dueAmount),
               merchantROI: Number(values.merchantROI),
               customerROI: Number(values.customerROI),
               loanStartDate: values.loanStartDate,
@@ -218,12 +297,14 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
 
         formik.resetForm();
         setAddModal(false);
+        setLoading(false);
       } catch (err) {
         console.error('Add customer error:', err);
       }
     },
   });
 
+  // input fields specificaions
   const formSections = [
     {
       title: 'Customer Information',
@@ -304,6 +385,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         {
           label: 'Item Quantity',
           name: 'itemQuantity',
+          type: 'number',
           value: formik.values.itemQuantity,
           onChange: formik.handleChange,
           onBlur: formik.handleBlur,
@@ -404,6 +486,16 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
             Boolean(formik.errors.dukandarAmount),
           helperText:
             formik.touched.dukandarAmount && formik.errors.dukandarAmount,
+        },
+        {
+          label: 'Due Amount',
+          type: 'number',
+          name: 'dueAmount',
+          value: formik.values.dueAmount,
+          onChange: formik.handleChange,
+          onBlur: formik.handleBlur,
+          error: formik.touched.dueAmount && Boolean(formik.errors.dueAmount),
+          helperText: formik.touched.dueAmount && formik.errors.dueAmount,
         },
         {
           label: 'Merchant ROI (pm)',
@@ -517,8 +609,108 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
     },
   ];
 
+  // for sort
+  const [amountRange, setAmountRange] = useState<number[]>([0, 100000]);
+
+  const sortformik = useFormik({
+    initialValues: {
+      from: '',
+      to: '',
+    },
+    validationSchema: Yup.object({
+      from: Yup.date().required('Date is required').nullable(),
+      to: Yup.date().required('Date is required').nullable(),
+    }),
+    onSubmit: async (values) => {},
+  });
+
+  const handleSliderChange = (_event: Event, newValue: number | number[]) => {
+    if (Array.isArray(newValue)) {
+      setAmountRange(newValue);
+    }
+  };
+  const valuetext = (value: number) => `${value}`;
+
+  console.log(amountRange);
+
+  //  For Seraching kalam base don search Input
+  const searchFunction = (value: any) => {
+    const lowerSearch = value.toLowerCase();
+    const filtered = data.filter(
+      (item) =>
+        item.customerDetails.name.toLowerCase().includes(lowerSearch) ||
+        item.kalam.details.name.toLowerCase().includes(lowerSearch) ||
+        item.kalam.loanId.toLowerCase().includes(lowerSearch)
+    );
+    setFilteredData(filtered);
+    console.log(filtered);
+  };
+  // Searching Using Debouncing
+  const debouncingSearch = (func: Function, delay: number) => {
+    let timer: any;
+    return function (...args: any) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
+
+  const handleSearch = (value: string) => {
+    searchFunction(value);
+  };
+
+  const debouncedSearchHandler = debouncingSearch(handleSearch, 1000);
+
   return (
     <>
+      {/* Search Bar  */}
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          pr: 2,
+        }}
+      >
+        <Paper
+          component="form"
+          sx={{
+            p: '2px 4px',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            width: 400,
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search Kalam"
+            inputProps={{ 'aria-label': 'Search' }}
+            onChange={(e) => {
+              debouncedSearchHandler(e.target.value);
+            }}
+          />
+          <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+          <Button
+            sx={{
+              ':focus': { outline: 'none' },
+              color: 'black',
+              textTransform: 'none',
+            }}
+            onClick={() => {
+              setSortModal(true);
+            }}
+          >
+            Sort
+            <TuneIcon sx={{ ml: 1 }} />
+          </Button>
+        </Paper>
+      </Box>
+
+      {/* Table for Showing Kalam and customer Details  */}
       <TableContainer component={Paper} sx={{ width: '100%', mt: 2 }}>
         <Table>
           <TableHead>
@@ -539,7 +731,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((kalam, index) => {
+            {filteredData.map((kalam, index) => {
               const loanStartDate = new Date(
                 kalam.kalam.loanDetails.loanStartDate
               );
@@ -547,6 +739,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
                 calculateMonthsAndDays(loanStartDate);
               return (
                 <TableRow key={kalam._id}>
+                  {/* Kalam ID  */}
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{kalam.kalam.loanId}</TableCell>
 
@@ -599,6 +792,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
                   <TableCell>{calculateTodaysValue()}</TableCell>
                   <TableCell>-</TableCell>
 
+                  {/* more info button  */}
                   <TableCell>
                     <IconButton
                       sx={{
@@ -623,6 +817,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         </Table>
       </TableContainer>
 
+      {/* for a add kalam button at the bottom */}
       <Paper
         sx={{
           position: 'fixed',
@@ -729,7 +924,7 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
         </DialogContent>
       </Dialog>
 
-      {/* for adding th Kalam  */}
+      {/* for adding the  Kalam  */}
       <Dialog
         open={addModal}
         onClose={() => setAddModal(false)}
@@ -768,6 +963,61 @@ const KalamsTable: React.FC<KalamProps> = (props) => {
                 type="submit"
               >
                 Add Kalam
+              </Button>
+            </Box>
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      {/* for adding sort modal */}
+      <Dialog
+        open={sortModal}
+        onClose={() => setSortModal(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>Add Kalam</DialogTitle>
+        <DialogContent>
+          <Box component="form" onSubmit={formik.handleSubmit}>
+            {/* Customer Information */}
+            <Box sx={{ mt: 2 }}>
+              <Box sx={{ mb: 4 }}>
+                <Grid container spacing={{ xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }}>
+                  <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+                    <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                      Sort by Date
+                    </Typography>
+                    <TextField fullWidth type="date" label="From" focused />
+                    <TextField
+                      fullWidth
+                      type="date"
+                      label="To"
+                      focused
+                      sx={{ mt: 3 }}
+                    />
+                  </Grid>
+                  <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+                    <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                      Sort by Amount
+                    </Typography>
+                    <Slider
+                      getAriaLabel={() => 'Amount range'}
+                      value={amountRange}
+                      onChange={handleSliderChange}
+                      getAriaValueText={valuetext}
+                      valueLabelDisplay="auto"
+                      min={10}
+                      max={100000}
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+            <Box
+              sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+            >
+              <Button variant="contained" sx={{ width: '60%', mt: 4 }}>
+                Save
               </Button>
             </Box>
           </Box>

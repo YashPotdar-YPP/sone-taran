@@ -56,7 +56,7 @@ const BreadcrumbsComponent = () => {
   const pathnames = location.pathname.split('/').filter((x) => x);
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 2 }}>
+    <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 2,p:1 }}>
       <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
         Home
       </Link>
@@ -200,7 +200,7 @@ const App = () => {
         </Box>
       </Drawer>
       {/* Main Content Area */}
-      <Box component="main" sx={{ flexGrow: 1, p: 1, mt: 8 }}>
+      <Box component="main" sx={{ flexGrow: 1, mt: 8 }}>
         <BreadcrumbsComponent />
 
         <Suspense fallback={<div>Loading...</div>}>

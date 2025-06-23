@@ -86,7 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return false;
   };
 
-  const verifyEmailOtp = async (otp: number) => {
+  const verifyEmailOtp = async (otp: string) => {
     if (!emailToken) return false;
 
     const response = await verifyEmailOtpApi(otp, emailToken);

@@ -18,19 +18,27 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { TailSpin } from 'react-loader-spinner';
 import useCustomerData from '../../../hooks/useCustomersData';
 
-const KalamDetails: React.FC = () => {
+const CustomerDetails: React.FC = () => {
+  // Id of the customer
   const { id } = useParams<{ id: string }>();
+
+  // Data of the customer
   const { state: data } = useLocation() as { state: any };
+
+  // For the edit modal
   const [editModal, setEditModal] = useState(false);
+
   const navigate = useNavigate();
 
+  // Custom Hooks
   const { deleteCustomer, updateCustomer } = useCustomerData();
 
   if (!data) return <Typography>Loading…</Typography>;
 
-  /** Helper to render a label–value row */
+  // Helper to render a label–value row
   const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
     <Grid container spacing={1}>
       <Grid item xs={5} sm={4} md={3}>
@@ -42,7 +50,7 @@ const KalamDetails: React.FC = () => {
     </Grid>
   );
 
-  /** Section wrapper */
+  // Section wrapper
   const Section = ({
     title,
     children,
@@ -58,6 +66,54 @@ const KalamDetails: React.FC = () => {
     </Box>
   );
 
+  // For Loader
+  const [loading, setLoading] = useState<boolean>(false);
+  if (loading) {
+    return (
+      <Box>
+        <Dialog
+          open={loading}
+          PaperProps={{
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none',
+            },
+          }}
+        >
+          <DialogContent
+            sx={{
+              background: 'transparent !important',
+              boxShadow: 'none',
+              padding: 0,
+            }}
+          >
+            <Box
+              sx={{
+                background: 'transparent',
+                boxShadow: 'none',
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+            >
+              <TailSpin
+                visible={true}
+                height="80"
+                width="80"
+                color="#1976d2"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </Box>
+          </DialogContent>
+        </Dialog>
+      </Box>
+    );
+  }
+
+  // formik for editing customer
   const editFormik = useFormik({
     initialValues: {
       name: '',
@@ -82,6 +138,8 @@ const KalamDetails: React.FC = () => {
     onSubmit: async (values) => {
       console.log('Updating:', values);
       try {
+        setLoading(true);
+        // for updating the customer
         updateCustomer(data._id, {
           name: values.name,
           contact: [values.phone],
@@ -93,6 +151,7 @@ const KalamDetails: React.FC = () => {
         });
         navigate('/customers');
         setEditModal(false);
+        setLoading(false);
         editFormik.resetForm();
       } catch (err) {
         console.error('Edit customer error:', err);
@@ -100,6 +159,7 @@ const KalamDetails: React.FC = () => {
     },
   });
 
+  // input specification
   const formSections = [
     {
       title: 'Customer Information',
@@ -163,6 +223,7 @@ const KalamDetails: React.FC = () => {
     },
   ];
 
+  // for deleing the customer
   const deleteCust = async () => {
     try {
       deleteCustomer(data._id);
@@ -179,7 +240,7 @@ const KalamDetails: React.FC = () => {
           Customer ID: {id}
         </Typography>
 
-        {/* Kalam details */}
+        {/* Customer details */}
         <Section title="Customer Details">
           <Row label="Name:" value={data.customer.name} />
           <Row label="Contact:" value={data.customer.contact?.[0] ?? '—'} />
@@ -197,6 +258,7 @@ const KalamDetails: React.FC = () => {
 
         <Divider sx={{ my: 3 }} />
 
+        {/* For showing the Kalam Deatails on customer name  */}
         <Section title="Loan Details">
           {/* Loan  Details*/}
           {data.LoanDetails.map((loan: any) => {
@@ -253,6 +315,7 @@ const KalamDetails: React.FC = () => {
           })}
         </Section>
 
+        {/* for Edit an Delete button  */}
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Button
             variant="contained"
@@ -286,7 +349,7 @@ const KalamDetails: React.FC = () => {
         </Box>
       </Paper>
 
-      {/* For edit Customer */}
+      {/* Modal For edit Customer */}
       <Dialog
         open={editModal}
         onClose={() => setEditModal(false)}
@@ -370,4 +433,4 @@ const KalamDetails: React.FC = () => {
   );
 };
 
-export default KalamDetails;
+export default CustomerDetails;

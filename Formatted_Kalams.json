@@ -1,0 +1,3017 @@
+[
+  {
+    "kalam": {
+      "details": {
+        "number": 1,
+        "name": "Pendant Mani 50",
+        "materialType": "Gold",
+        "netWeight": 4.0,
+        "grossWeight": 4.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 12000,
+        "customerAmt": 5000,
+        "dukandarAmt": 7000,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "1"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "101",
+      "name": "Mangal Aastul",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "101",
+      "name": "Vasant",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 2,
+        "name": "Wati",
+        "materialType": "Gold",
+        "netWeight": 2.0,
+        "grossWeight": 2.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 6000,
+        "customerAmt": 6500,
+        "dukandarAmt": -500,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "2"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "102",
+      "name": "Ashok Dekhane",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "101",
+      "name": "Vasant",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 3,
+        "name": "Neckless",
+        "materialType": "Gold",
+        "netWeight": 10.0,
+        "grossWeight": 10.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 34000,
+        "customerAmt": 25000,
+        "dukandarAmt": 9000,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "3"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "103",
+      "name": "Bhairavkar mama",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "102",
+      "name": "Madan",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 4,
+        "name": "Sui dhaga",
+        "materialType": "Gold",
+        "netWeight": 4.0,
+        "grossWeight": 4.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 12000,
+        "customerAmt": 8000,
+        "dukandarAmt": 4000,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "4"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "104",
+      "name": "Chandrakant Bogawe",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 5,
+        "name": "Ranihar Aangthi",
+        "materialType": "Gold",
+        "netWeight": 50.0,
+        "grossWeight": 50.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 200000,
+        "customerAmt": 150000,
+        "dukandarAmt": 50000,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "5"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "103",
+      "name": "Bhairavkar mama",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 6,
+        "name": "Wati mani",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 4500,
+        "dukandarAmt": 5500,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "6"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "105",
+      "name": "Jayashri Kasbe",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 7,
+        "name": "Pendant 1 Mani 40",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 6000,
+        "dukandarAmt": 4000,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "7"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "106",
+      "name": "Vilas Shinde",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 8,
+        "name": "Ganthan",
+        "materialType": "Gold",
+        "netWeight": 6.0,
+        "grossWeight": 6.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 18000,
+        "customerAmt": 18000,
+        "dukandarAmt": 0,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "8"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "107",
+      "name": "Suresh Chavan",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 9,
+        "name": "chapa ting",
+        "materialType": "Gold",
+        "netWeight": 6.0,
+        "grossWeight": 6.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 25000,
+        "customerAmt": 7000,
+        "dukandarAmt": 18000,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "9"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "108",
+      "name": "Meher Jagtap",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 10,
+        "name": "ear ring",
+        "materialType": "Gold",
+        "netWeight": 3.0,
+        "grossWeight": 3.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 8000,
+        "dukandarAmt": 2000,
+        "customerROI": 36.0,
+        "merchantROI": 24.0,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "10"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "109",
+      "name": "Pappu Mahadik",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 11,
+        "name": "Wati 2 mani 44 Stops 1 pair",
+        "materialType": "Gold",
+        "netWeight": 5.0,
+        "grossWeight": 5.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 18000,
+        "customerAmt": 10000,
+        "dukandarAmt": 8000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "11"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "110",
+      "name": "Santosh Chavan",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 12,
+        "name": "Chain",
+        "materialType": "Gold",
+        "netWeight": 4.0,
+        "grossWeight": 4.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 15000,
+        "customerAmt": 18000,
+        "dukandarAmt": -3000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "12"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "103",
+      "name": "Bhairavkar mama",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 13,
+        "name": "Wati 2 mani 100",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 7500,
+        "customerAmt": 7000,
+        "dukandarAmt": 500,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "13"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "103",
+      "name": "Bhairavkar mama",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 14,
+        "name": "Aangthi",
+        "materialType": "Gold",
+        "netWeight": 5.0,
+        "grossWeight": 5.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 20000,
+        "customerAmt": 12000,
+        "dukandarAmt": 8000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "14"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "111",
+      "name": "Rajkumar Kamble",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 15,
+        "name": "top's",
+        "materialType": "Gold",
+        "netWeight": 1.5,
+        "grossWeight": 1.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 3000,
+        "customerAmt": 2000,
+        "dukandarAmt": 1000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "15"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "112",
+      "name": "Mina Aadmane",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 16,
+        "name": "wati 1 mani 2",
+        "materialType": "Gold",
+        "netWeight": 4.0,
+        "grossWeight": 4.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 17000,
+        "customerAmt": 7000,
+        "dukandarAmt": 10000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "16"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "113",
+      "name": "Shekhar Ghule",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 17,
+        "name": "Short ganthan",
+        "materialType": "Gold",
+        "netWeight": 10.0,
+        "grossWeight": 10.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 30000,
+        "customerAmt": 18000,
+        "dukandarAmt": 12000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "17"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "103",
+      "name": "Bhairavkar mama",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 18,
+        "name": "Ringa",
+        "materialType": "Gold",
+        "netWeight": 2.0,
+        "grossWeight": 2.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 7000,
+        "customerAmt": 5000,
+        "dukandarAmt": 2000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "18"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "114",
+      "name": "Reshma Kamble",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 19,
+        "name": "stops",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 7000,
+        "dukandarAmt": 3000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "19"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "102",
+      "name": "Ashok Dekhane",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 20,
+        "name": "ringa",
+        "materialType": "Gold",
+        "netWeight": 2.0,
+        "grossWeight": 2.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 4500,
+        "customerAmt": 3000,
+        "dukandarAmt": 1500,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "20"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "115",
+      "name": "Kiran JAdhav",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 21,
+        "name": "gathan",
+        "materialType": "Gold",
+        "netWeight": 10.0,
+        "grossWeight": 10.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 30000,
+        "customerAmt": 20000,
+        "dukandarAmt": 10000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "21"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "116",
+      "name": "Shiram Gaikwad",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 22,
+        "name": "Aangthi Pushpraj stone",
+        "materialType": "Gold",
+        "netWeight": 5.0,
+        "grossWeight": 5.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 20000,
+        "customerAmt": 18000,
+        "dukandarAmt": 2000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "22"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "103",
+      "name": "Bhairavkar mama",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 23,
+        "name": "Wati Mani",
+        "materialType": "Gold",
+        "netWeight": 4.0,
+        "grossWeight": 4.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 13000,
+        "customerAmt": 7000,
+        "dukandarAmt": 6000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "23"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "117",
+      "name": "Sugriv Thorat",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 24,
+        "name": "Stops TAr",
+        "materialType": "Gold",
+        "netWeight": 1.5,
+        "grossWeight": 1.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 4000,
+        "customerAmt": 4000,
+        "dukandarAmt": 0,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "24"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "118",
+      "name": "Shilpa Kulkarni",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 25,
+        "name": "Pot",
+        "materialType": "Gold",
+        "netWeight": 12.0,
+        "grossWeight": 12.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 37000,
+        "customerAmt": 34000,
+        "dukandarAmt": 3000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "25"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "119",
+      "name": "Laxman jagtap",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 26,
+        "name": "Rudrash Mal",
+        "materialType": "Gold",
+        "netWeight": 20.0,
+        "grossWeight": 20.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 80000,
+        "customerAmt": 60000,
+        "dukandarAmt": 20000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "26"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "120",
+      "name": "Balaji",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 27,
+        "name": "Wati mani",
+        "materialType": "Gold",
+        "netWeight": 7.0,
+        "grossWeight": 7.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 25000,
+        "customerAmt": 13000,
+        "dukandarAmt": 12000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "27"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "121",
+      "name": "Pratisha Belhekar",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 28,
+        "name": "Aangthi",
+        "materialType": "Gold",
+        "netWeight": 3.0,
+        "grossWeight": 3.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 6000,
+        "dukandarAmt": 4000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "28"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "122",
+      "name": "Vishal Shinde",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 29,
+        "name": "Nekless",
+        "materialType": "Gold",
+        "netWeight": 7.0,
+        "grossWeight": 7.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 22000,
+        "customerAmt": 12000,
+        "dukandarAmt": 10000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "29"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "123",
+      "name": "Ankita aadmuthe",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 30,
+        "name": "Aangthi",
+        "materialType": "Gold",
+        "netWeight": 5.0,
+        "grossWeight": 5.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 18000,
+        "customerAmt": 14000,
+        "dukandarAmt": 4000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "30"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "124",
+      "name": "Sandesh Musale",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 31,
+        "name": "Bali + Badam",
+        "materialType": "Gold",
+        "netWeight": 1.5,
+        "grossWeight": 1.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 4000,
+        "customerAmt": 1200,
+        "dukandarAmt": 2800,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "31"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "125",
+      "name": "Mangal Shinde",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 32,
+        "name": "Stops zumke + aangthi",
+        "materialType": "Gold",
+        "netWeight": 4.5,
+        "grossWeight": 4.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 18000,
+        "customerAmt": 15000,
+        "dukandarAmt": 3000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "32"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "123",
+      "name": "Ankita aadmuthe",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 33,
+        "name": "Pot 40 ta 4 wati 2",
+        "materialType": "Gold",
+        "netWeight": 7.0,
+        "grossWeight": 7.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 20000,
+        "customerAmt": 15000,
+        "dukandarAmt": 5000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "33"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "126",
+      "name": "Dhanaji Gawali",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 34,
+        "name": "stops",
+        "materialType": "Gold",
+        "netWeight": 3.0,
+        "grossWeight": 3.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 6000,
+        "dukandarAmt": 4000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "34"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "112",
+      "name": "Mina Aadmane",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 35,
+        "name": "Bormal",
+        "materialType": "Gold",
+        "netWeight": 8.0,
+        "grossWeight": 8.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 30000,
+        "customerAmt": 23000,
+        "dukandarAmt": 7000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "35"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "103",
+      "name": "Bhairavkar mama",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 36,
+        "name": "wati mani",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 6000,
+        "dukandarAmt": 4000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "36"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "127",
+      "name": "manisha kamble",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 37,
+        "name": "stops chain",
+        "materialType": "Gold",
+        "netWeight": 9.0,
+        "grossWeight": 9.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 27000,
+        "customerAmt": 16000,
+        "dukandarAmt": 11000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "37"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "128",
+      "name": "Rajendra sable",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 38,
+        "name": "Chain",
+        "materialType": "Gold",
+        "netWeight": 11.0,
+        "grossWeight": 11.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 45000,
+        "customerAmt": 32000,
+        "dukandarAmt": 13000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "38"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "129",
+      "name": "Nana Kunjir",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 39,
+        "name": "stops",
+        "materialType": "Gold",
+        "netWeight": 2.8,
+        "grossWeight": 2.8,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 6000,
+        "dukandarAmt": 4000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "39"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "130",
+      "name": "Vinod Padelkar",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 40,
+        "name": "stops",
+        "materialType": "Gold",
+        "netWeight": 1.4,
+        "grossWeight": 1.4,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 4000,
+        "customerAmt": 2000,
+        "dukandarAmt": 2000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "40"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "131",
+      "name": "Aasha Dalvi",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 41,
+        "name": "ganthan",
+        "materialType": "Gold",
+        "netWeight": 15.0,
+        "grossWeight": 15.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 40000,
+        "customerAmt": 17300,
+        "dukandarAmt": 22700,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "41"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "132",
+      "name": "Maniohar jadhav",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 42,
+        "name": "wati mani",
+        "materialType": "Gold",
+        "netWeight": 2.0,
+        "grossWeight": 2.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 4000,
+        "customerAmt": 1500,
+        "dukandarAmt": 2500,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "42"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "118",
+      "name": "Shilpa Kulkarni",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 43,
+        "name": "aangthi",
+        "materialType": "Gold",
+        "netWeight": 5.0,
+        "grossWeight": 5.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 20000,
+        "customerAmt": 5000,
+        "dukandarAmt": 15000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "43"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "133",
+      "name": "Shinde sir",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 44,
+        "name": "wati 2 mani 4",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 7000,
+        "customerAmt": 2000,
+        "dukandarAmt": 5000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "44"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "134",
+      "name": "megha bansode",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 45,
+        "name": "earring",
+        "materialType": "Gold",
+        "netWeight": 4.0,
+        "grossWeight": 4.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 15000,
+        "customerAmt": 8000,
+        "dukandarAmt": 7000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "45"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "135",
+      "name": "Rutuja Gawade",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 46,
+        "name": "Ringa",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 13000,
+        "dukandarAmt": -3000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "46"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "136",
+      "name": "Vinod Kamble",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 47,
+        "name": "top's",
+        "materialType": "Gold",
+        "netWeight": 1.5,
+        "grossWeight": 1.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 4000,
+        "customerAmt": 2000,
+        "dukandarAmt": 2000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "47"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "137",
+      "name": "Shinde Bai",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 48,
+        "name": "Aangthi",
+        "materialType": "Gold",
+        "netWeight": 4.2,
+        "grossWeight": 4.2,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 20000,
+        "customerAmt": 15000,
+        "dukandarAmt": 5000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "48"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "138",
+      "name": "Swara Jadhav",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 49,
+        "name": "Earring",
+        "materialType": "Gold",
+        "netWeight": 4.1,
+        "grossWeight": 4.1,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 16000,
+        "customerAmt": 3000,
+        "dukandarAmt": 13000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "49"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "139",
+      "name": "Swati Gaikawad",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 50,
+        "name": "Ganthan",
+        "materialType": "Gold",
+        "netWeight": 11.0,
+        "grossWeight": 11.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 45000,
+        "customerAmt": 40000,
+        "dukandarAmt": 5000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "50"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "140",
+      "name": "Gunfabai",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 51,
+        "name": "Ganthan",
+        "materialType": "Gold",
+        "netWeight": 7.0,
+        "grossWeight": 7.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 20000,
+        "customerAmt": 11000,
+        "dukandarAmt": 9000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "51"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "139",
+      "name": "Swati Gaikawad",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 52,
+        "name": "badam aangthi",
+        "materialType": "Gold",
+        "netWeight": 1.0,
+        "grossWeight": 1.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 4000,
+        "customerAmt": 5000,
+        "dukandarAmt": -1000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "52"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "141",
+      "name": "Galfade (Jagtap)",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 53,
+        "name": "Ganthan",
+        "materialType": "Gold",
+        "netWeight": 25.0,
+        "grossWeight": 25.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 100000,
+        "customerAmt": 80000,
+        "dukandarAmt": 20000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "53"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "120",
+      "name": "Balaji",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 54,
+        "name": "Mani",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 8000,
+        "customerAmt": 5000,
+        "dukandarAmt": 3000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "54"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "137",
+      "name": "Shinde Bai",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 55,
+        "name": "Stop's",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 8000,
+        "customerAmt": 5000,
+        "dukandarAmt": 3000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "55"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "142",
+      "name": "Gaikwad",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 56,
+        "name": "Ringa",
+        "materialType": "Gold",
+        "netWeight": 2.9,
+        "grossWeight": 2.9,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 12000,
+        "customerAmt": 10000,
+        "dukandarAmt": 2000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "56"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "143",
+      "name": "Priya Vaidya",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 57,
+        "name": "Bormaal",
+        "materialType": "Gold",
+        "netWeight": 5.0,
+        "grossWeight": 5.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 17000,
+        "customerAmt": 10000,
+        "dukandarAmt": 7000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "57"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "144",
+      "name": "Sunita Pawar",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 58,
+        "name": "Aangthi",
+        "materialType": "Gold",
+        "netWeight": 3.0,
+        "grossWeight": 3.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 3000,
+        "dukandarAmt": 7000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "58"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "145",
+      "name": "Ashok Mane",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 59,
+        "name": "Stop's",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 9000,
+        "customerAmt": 5000,
+        "dukandarAmt": 4000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "59"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "146",
+      "name": "Sachin Torne",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 60,
+        "name": "Pendel",
+        "materialType": "Gold",
+        "netWeight": 2.3,
+        "grossWeight": 2.3,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 9000,
+        "customerAmt": 4000,
+        "dukandarAmt": 5000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "60"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "147",
+      "name": "Subhra Bhabhi",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 61,
+        "name": "Stop's",
+        "materialType": "Gold",
+        "netWeight": 5.0,
+        "grossWeight": 5.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 25000,
+        "customerAmt": 20000,
+        "dukandarAmt": 5000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "61"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "148",
+      "name": "Dada Ankushrao",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 62,
+        "name": "Chain Aangthi",
+        "materialType": "Gold",
+        "netWeight": 9.0,
+        "grossWeight": 9.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 37000,
+        "customerAmt": 30000,
+        "dukandarAmt": 7000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "62"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "149",
+      "name": "Sachin Chavan",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 63,
+        "name": "Wati Mani",
+        "materialType": "Gold",
+        "netWeight": 4.0,
+        "grossWeight": 4.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 14000,
+        "customerAmt": 6000,
+        "dukandarAmt": 8000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "63"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "150",
+      "name": "Meher",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 64,
+        "name": "Mani",
+        "materialType": "Gold",
+        "netWeight": 5.0,
+        "grossWeight": 5.0,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 16000,
+        "customerAmt": 5000,
+        "dukandarAmt": 11000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "64"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "151",
+      "name": "Sugra Shaikh",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 65,
+        "name": "Stops",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 3000,
+        "dukandarAmt": 7000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "65"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "152",
+      "name": "Prabhale",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 66,
+        "name": "Wati Mani",
+        "materialType": "Gold",
+        "netWeight": 4.5,
+        "grossWeight": 4.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 18000,
+        "customerAmt": 13000,
+        "dukandarAmt": 5000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "66"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "153",
+      "name": "Padalkar",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  },
+  {
+    "kalam": {
+      "details": {
+        "number": 67,
+        "name": "Ringa",
+        "materialType": "Gold",
+        "netWeight": 2.5,
+        "grossWeight": 2.5,
+        "purity": 75,
+        "goldRateAtLoan": 8500
+      },
+      "loanDetails": {
+        "totalAmt": 10000,
+        "customerAmt": 7000,
+        "dukandarAmt": 3000,
+        "customerROI": 36.0,
+        "merchantROI": 19.2,
+        "loanStartDate": "-",
+        "validity": "Valid"
+      },
+      "loanId": "67"
+    },
+    "customerDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "customerId": "154",
+      "name": "Rani Sable",
+      "contact": [],
+      "__v": 0
+    },
+    "merchantDetails": {
+      "address": {
+        "street": "-",
+        "city": "-",
+        "zip": "-"
+      },
+      "merchantId": "-",
+      "name": "-",
+      "shopName": "-",
+      "contact": []
+    }
+  }
+]

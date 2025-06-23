@@ -21,6 +21,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  InputBase,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { Visibility } from '@mui/icons-material';
@@ -30,7 +31,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { CustomerDetails } from '../models/Customers';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import SearchIcon from '@mui/icons-material/Search';
 import useCustomerData from '../../../hooks/useCustomersData';
+import { TailSpin } from 'react-loader-spinner';
 
 const CustomerTable: React.FC<CustomerProps> = (props) => {
   const { data } = props;
@@ -63,6 +66,7 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
     onSubmit: async (values) => {
       console.log('Submitting:', values);
       try {
+        setLoading(true);
         addCustomerData({
           name: values.name,
           contact: [values.phone, values.altPhone],
@@ -75,6 +79,7 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
 
         formik.resetForm();
         setAddModal(false);
+        setLoading(true);
       } catch (err) {
         console.error('Add customer error:', err);
       }
@@ -144,8 +149,122 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
     },
   ];
 
+  // For filter data
+  const [filteredData, setFilteredData] = useState(data);
+
+  // For Loader
+  const [loading, setLoading] = useState<boolean>(false);
+  if (loading) {
+    return (
+      <Box>
+        <Dialog
+          open={loading}
+          PaperProps={{
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none',
+            },
+          }}
+        >
+          <DialogContent
+            sx={{
+              background: 'transparent !important',
+              boxShadow: 'none',
+              padding: 0,
+            }}
+          >
+            <Box
+              sx={{
+                background: 'transparent',
+                boxShadow: 'none',
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+            >
+              <TailSpin
+                visible={true}
+                height="80"
+                width="80"
+                color="#1976d2"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </Box>
+          </DialogContent>
+        </Dialog>
+      </Box>
+    );
+  }
+
+  //  For Seraching Customer based on search Input
+  const searchFunction = (value: any) => {
+    const lowerSearch = value.toLowerCase();
+    const filtered = data.filter(
+      (item) =>
+        item.customer.name.toLowerCase().includes(lowerSearch) ||
+        item.customer.contact[0].toLowerCase().includes(lowerSearch) ||
+        item.customer.contact[1].toLowerCase().includes(lowerSearch) ||
+        item.customer.customerId.toLowerCase().includes(lowerSearch)
+    );
+    setFilteredData(filtered);
+    console.log(filtered);
+  };
+  
+  // Searching Using Debouncing
+  const debouncingSearch = (func: Function, delay: number) => {
+    let timer: any;
+    return function (...args: any) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
+
+  const handleSearch = (value: string) => {
+    searchFunction(value);
+  };
+
+  const debouncedSearchHandler = debouncingSearch(handleSearch, 1000);
+
   return (
     <>
+      {/* for Search Input  */}
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          pr: 2,
+        }}
+      >
+        <Paper
+          component="form"
+          sx={{
+            p: '2px 4px',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            width: 400,
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search Customer"
+            inputProps={{ 'aria-label': 'Search' }}
+            onChange={(e) => {
+              debouncedSearchHandler(e.target.value);
+            }}
+          />
+          <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+      </Box>
+      {/* for showing customer in a table  */}
       <TableContainer component={Paper} sx={{ width: '100%', mt: 2 }}>
         <Table>
           <TableHead>
@@ -160,7 +279,7 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((customers, index) => {
+            {filteredData.map((customers, index) => {
               return (
                 <TableRow key={customers._id}>
                   <TableCell>{index + 1}</TableCell>
@@ -218,7 +337,7 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-
+      {/* for the add icon in the bottom */}
       <Paper
         sx={{
           position: 'fixed',
@@ -258,7 +377,7 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
           />
         </BottomNavigation>
       </Paper>
-
+      {/* for viewing for information about customer address */}
       <Dialog
         open={!!selectedCustomer}
         onClose={() => setSelectedCustomer(null)}
@@ -288,7 +407,7 @@ const CustomerTable: React.FC<CustomerProps> = (props) => {
           )}
         </DialogContent>
       </Dialog>
-
+      {/* modal for adding customer */}
       <Dialog
         open={addModal}
         onClose={() => setAddModal(false)}
