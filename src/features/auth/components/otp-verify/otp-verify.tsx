@@ -218,13 +218,13 @@ const OtpVerify: React.FC = () => {
                   },
                 }}
                 onClick={() => {
-                  otpfield.emaillogin === true ? resendEmailOtp() : resendOtp();
+                  otpfield?.emaillogin === true ? resendEmailOtp() : resendOtp();
                 }}
               >
                 Resend Otp ?
               </Button>
             </Box>
-            {otpfield.emaillogin === true ? (
+            {otpfield?.emaillogin === true ? (
               ' '
             ) : (
               <Box
@@ -244,6 +244,22 @@ const OtpVerify: React.FC = () => {
                 OTP :- {otpSent}
               </Box>
             )}
+            <Box
+              sx={{
+                mt: 2,
+                textAlign: 'center',
+                fontSize: 'larger',
+                display: {
+                  xl: 'none',
+                  lg: 'none',
+                  md: 'none',
+                  sm: 'none',
+                  xs: 'block',
+                },
+              }}
+            >
+              OTP :- {otpSent}
+            </Box>
           </Box>
         </Box>
       </Box>
